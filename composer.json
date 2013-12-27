@@ -1,0 +1,23 @@
+{
+    "name": "rafasamp/sonus",
+    "description": "A laravel implementation of SoX for on-demand audio conversion",
+    "authors": [
+        {
+            "name": "Rafael Sampaio",
+            "email": "rafaelsampaio@live.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Rafasamp\\Sonus\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
