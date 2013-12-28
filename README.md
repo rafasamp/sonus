@@ -1,4 +1,4 @@
 sonus
 =====
 
-A laravel implementation of the SoX audio converting engine
+A laravel implementation of the ffmpeg audio converting engine
