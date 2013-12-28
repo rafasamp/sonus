@@ -28,7 +28,10 @@ class SonusServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app['sonus'] = $this->app->share(function($app)
+        {
+            return new Sonus;
+        });
 	}
 
 	/**
@@ -38,7 +41,7 @@ class SonusServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return array('sonus');
 	}
 
 }
