@@ -15,7 +15,7 @@ use Config;
 
 class Sonus
 {
-	
+
 	protected $FFMPEG;
 
 	public function __construct()
@@ -112,6 +112,38 @@ class Sonus
 
 		// PREG pattern to retrive version information
 		preg_match_all("/[V]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\S{3,20})\s/", $output, $parsed);
+
+		return $parsed['format'];
+	}
+
+	/**
+	 * Returns all audio formats FFMPEG can decode
+	 * @return array
+	 */
+	public function getSupportedAudioDecoders()
+	{
+		// Run terminal command
+		$command = $this->FFMPEG.' -decoders';
+		$output  = shell_exec($command);
+
+		// PREG pattern to retrive version information
+		preg_match_all("/[A]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\w{3,20})\s/", $output, $parsed);
+
+		return $parsed['format'];
+	}
+
+	/**
+	 * Returns all video formats FFMPEG can decode
+	 * @return array
+	 */
+	public function getSupportedVideoDecoders()
+	{
+		// Run terminal command
+		$command = $this->FFMPEG.' -decoders';
+		$output  = shell_exec($command);
+
+		// PREG pattern to retrive version information
+		preg_match_all("/[V]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\w{3,20})\s/", $output, $parsed);
 
 		return $parsed['format'];
 	}
