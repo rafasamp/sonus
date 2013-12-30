@@ -71,7 +71,7 @@ class Sonus
 	 */
 	public function getSupportedFormats()
 	{
-		// Run terminal command to retrieve version
+		// Run terminal command
 		$command = $this->FFMPEG.' -formats';
 		$output  = shell_exec($command);
 
@@ -90,7 +90,7 @@ class Sonus
 	 */
 	public function getSupportedAudioEncoders()
 	{
-		// Run terminal command to retrieve version
+		// Run terminal command
 		$command = $this->FFMPEG.' -encoders';
 		$output  = shell_exec($command);
 
@@ -106,7 +106,7 @@ class Sonus
 	 */
 	public function getSupportedVideoEncoders()
 	{
-		// Run terminal command to retrieve version
+		// Run terminal command
 		$command = $this->FFMPEG.' -encoders';
 		$output  = shell_exec($command);
 
