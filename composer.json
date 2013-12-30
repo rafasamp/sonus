@@ -1,6 +1,6 @@
 {
     "name": "rafasamp/sonus",
-    "description": "A laravel implementation of SoX for on-demand audio conversion",
+    "description": "A laravel implementation of ffmpeg for on-demand conversion",
     "authors": [
         {
             "name": "Rafael Sampaio",
