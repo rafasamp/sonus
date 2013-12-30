@@ -1,4 +1,4 @@
-sonus
+sonus [![Build Status](https://travis-ci.org/rafasamp/sonus.png?branch=master)](https://travis-ci.org/rafasamp/sonus)
 =====
 
 A laravel implementation of the ffmpeg converting engine
