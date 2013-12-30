@@ -100,4 +100,20 @@ class Sonus
 		return $parsed['format'];
 	}
 
+	/**
+	 * Returns all video formats FFMPEG can encode
+	 * @return array
+	 */
+	public function getSupportedVideoEncoders()
+	{
+		// Run terminal command to retrieve version
+		$command = $this->FFMPEG.' -encoders';
+		$output  = shell_exec($command);
+
+		// PREG pattern to retrive version information
+		preg_match_all("/[V]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\S{3,20})\s/", $output, $parsed);
+
+		return $parsed['format'];
+	}
+
 }
