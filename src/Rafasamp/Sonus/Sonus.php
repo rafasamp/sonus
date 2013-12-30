@@ -148,4 +148,48 @@ class Sonus
 		return $parsed['format'];
 	}
 
+	/**
+	 * Returns boolean if FFMPEG is able to encode to this format
+	 * @param  string $format FFMPEG format name
+	 * @return boolean
+	 */
+	public static function canEncode($format)
+	{
+		// Get an array with all supported encoding formats
+		$app     = new Sonus;
+		$formats = array_merge($app->getSupportedAudioEncoders(), $app->getSupportedVideoEncoders());
+
+		// Return boolean if they can be encoded or not
+		if(!in_array($format, $formats))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	/**
+	 * Returns boolean if FFMPEG is able to decode to this format
+	 * @param  string $format FFMPEG format name
+	 * @return boolean
+	 */
+	public static function canDecode($format)
+	{
+		// Get an array with all supported encoding formats
+		$app     = new Sonus;
+		$formats = array_merge($app->getSupportedAudioDecoders(), $app->getSupportedVideoDecoders());
+
+		// Return boolean if they can be encoded or not
+		if(!in_array($format, $formats))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
 }
