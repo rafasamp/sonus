@@ -65,4 +65,23 @@ class Sonus
 		return $version;
 	}
 
+	/**
+	 * Returns all formats FFMPEG supports
+	 * @return array
+	 */
+	public function getSupportedFormats()
+	{
+		// Run terminal command to retrieve version
+		$command = $this->FFMPEG.' -formats';
+		$output  = shell_exec($command);
+
+		// PREG pattern to retrive version information
+		preg_match_all("/(?P<mux>(D\s|\sE|DE))\s(?P<format>\S{3,11})\s/", $output, $parsed);
+
+		// Combine the format and mux information into an array
+		$formats = array_combine($parsed['format'], $parsed['mux']);
+
+		return $formats;
+	}
+
 }
