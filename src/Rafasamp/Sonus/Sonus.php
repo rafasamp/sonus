@@ -84,4 +84,20 @@ class Sonus
 		return $formats;
 	}
 
+	/**
+	 * Returns all audio formats FFMPEG can encode
+	 * @return array
+	 */
+	public function getSupportedAudioEncoders()
+	{
+		// Run terminal command to retrieve version
+		$command = $this->FFMPEG.' -encoders';
+		$output  = shell_exec($command);
+
+		// PREG pattern to retrive version information
+		preg_match_all("/[A]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\S{3,20})\s/", $output, $parsed);
+
+		return $parsed['format'];
+	}
+
 }
