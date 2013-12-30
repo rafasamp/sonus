@@ -33,4 +33,36 @@ class Sonus
 		}
 	}
 
+	/**
+	 * Returns full path of FFMPEG
+	 * @return string
+	 */
+	public function getConverterPath()
+	{
+		return $this->FFMPEG;
+	}
+
+	/**
+	 * Returns installed FFMPEG version
+	 * @return array
+	 */
+	public function getConverterVersion()
+	{
+		// Run terminal command to retrieve version
+		$command = $this->FFMPEG.' -version';
+		$output  = shell_exec($command);
+
+		// PREG pattern to retrive version information
+		preg_match("/ffmpeg version (?P<major>[0-9]{0,3}).(?P<minor>[0-9]{0,3}).(?P<revision>[0-9]{0,3})/", $output, $parsed);
+
+		// Assign array with variables
+		$version = array(
+			'major' => $parsed['major'],
+			'minor' => $parsed['minor'],
+			'rev'   => $parsed['revision']
+			);
+
+		return $version;
+	}
+
 }
