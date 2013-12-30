@@ -1,9 +1,11 @@
 <?php namespace Rafasamp\Sonus;
 
+use Config;
+
 /**
  * Laravel Audio Conversion Package
  *
- * This package is created to handle server-side audio conversion tasks using FFMPEG (http://www.fmpeg.org)
+ * This package is created to handle server-side conversion tasks using FFMPEG (http://www.fmpeg.org)
  *
  * @package    Laravel
  * @category   Bundle
