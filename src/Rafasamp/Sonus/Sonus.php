@@ -186,4 +186,44 @@ class Sonus
 		}
 	}
 
+
+	/**
+	 * Extracts information from a string when given a beggining and end needle
+	 * @param  string  $string    Haystack
+	 * @param  string  $start     Needle for starting extraction
+	 * @param  string  $end       Needle to stop extraction
+	 * @param  boolean $array     Item should be returned as an array
+	 * @param  string  $delimiter Delimiter
+	 * @return string             Retrieved information from string
+	 * @return array 			  Array with exploded elements from string
+	 */
+	private static function _extractFromString($string, $start, $end, $array = false, $delimiter = ',')
+	{
+		// Get lenght of start string
+		$startLen  	= strlen($start);
+
+		// Return piece of string requested
+		$output 	= strstr(strstr($string, $start), $end, true);
+
+		// Trim whitespace and remove start parameter
+		$output 	= trim(substr($output, $startLen));
+
+		// If requested, process output to array
+		if($array === true) {
+			// Explode string using given delimiter
+			$explode = explode($delimiter, $output);
+
+			// Set output as array
+			$output  = array();
+
+			// Loop through each item and trim whitespaces
+			foreach($explode as $item) {
+				$output[] = trim($item);
+			}
+		}
+
+		return $output;
+
+	}
+
 }
