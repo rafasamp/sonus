@@ -186,6 +186,32 @@ class Sonus
 		}
 	}
 
+	/**
+	 * Returns array with file information
+	 * @param  string $filepath Full path to the file
+	 * @return array
+	 */
+	public static function getMediaInfo($filepath)
+	{
+		$app	 = new Sonus;
+		$command = $app->FFMPEG.' -i '.$filepath.' 2>&1';
+		$output  = shell_exec($command);
+
+		$metadata 	= self::_extractFromString($output, 'Metadata:', 'encoder');  // TODO: Test with a file that has metadata
+		$duration 	= self::_extractFromString($output, 'Duration:', ', start:'); // TODO: Return hh:mm:ss.mm as array
+		$bitrate 	= self::_extractFromString($output, 'bitrate:', ' Stream');
+		$video 		= self::_extractFromString($output, 'Video:', ' Stream', true);
+		$audio 		= self::_extractFromString($output, 'Audio:', 'At least', true);
+
+		$output 	= array(
+			"Metadata" => $metadata,
+			"Duration" => $duration,
+			"Bitrate"  => $bitrate,
+			"Video"    => $video,
+			"Audio"    => $audio);
+
+		return $output;
+	}
 
 	/**
 	 * Extracts information from a string when given a beggining and end needle
