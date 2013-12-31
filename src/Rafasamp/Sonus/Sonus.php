@@ -21,16 +21,19 @@ class Sonus
 
 	public function __construct()
 	{
-		try 
-		{
-			$this->_FFMPEG = Config::get('sonus::ffmpeg');
-			if(file_exists($this->_FFMPEG) === false)
-			{
-				throw new FileNotFoundException("Unable to access FFMPEG executable!");
-			}
+		// Assign FFMPEG path
+		$this->_FFMPEG = Config::get('sonus::ffmpeg');
 
-		} catch (Exception $e) {
-			return $e;
+		// Return server operating system
+		$this->_OS = strtoupper(substr(php_uname(), 0, 3));
+
+		// Return supported operating systems
+		$supported = Config::get('sonus::supported_os');
+
+		// Check if OS is supported
+		if (!in_array($this->_OS, $supported)) {
+			// This OS is unsupported
+			die('Unsupported operating system');
 		}
 	}
 
