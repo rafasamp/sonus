@@ -160,12 +160,9 @@ class Sonus
 		$formats = array_merge($app->getSupportedAudioEncoders(), $app->getSupportedVideoEncoders());
 
 		// Return boolean if they can be encoded or not
-		if(!in_array($format, $formats))
-		{
+		if(!in_array($format, $formats)) {
 			return false;
-		}
-		else
-		{
+		} else {
 			return true;
 		}
 	}
@@ -182,12 +179,9 @@ class Sonus
 		$formats = array_merge($app->getSupportedAudioDecoders(), $app->getSupportedVideoDecoders());
 
 		// Return boolean if they can be encoded or not
-		if(!in_array($format, $formats))
-		{
+		if(!in_array($format, $formats)) {
 			return false;
-		}
-		else
-		{
+		} else	{
 			return true;
 		}
 	}
