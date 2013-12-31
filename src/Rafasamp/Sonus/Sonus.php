@@ -16,14 +16,15 @@ use Config;
 class Sonus
 {
 
-	protected $FFMPEG;
+	protected $_FFMPEG;
+	protected $_OS;
 
 	public function __construct()
 	{
 		try 
 		{
-			$this->FFMPEG = Config::get('sonus::ffmpeg');
-			if(file_exists($this->FFMPEG) === false)
+			$this->_FFMPEG = Config::get('sonus::ffmpeg');
+			if(file_exists($this->_FFMPEG) === false)
 			{
 				throw new FileNotFoundException("Unable to access FFMPEG executable!");
 			}
@@ -39,7 +40,7 @@ class Sonus
 	 */
 	public function getConverterPath()
 	{
-		return $this->FFMPEG;
+		return $this->_FFMPEG;
 	}
 
 	/**
@@ -49,7 +50,7 @@ class Sonus
 	public function getConverterVersion()
 	{
 		// Run terminal command to retrieve version
-		$command = $this->FFMPEG.' -version';
+		$command = $this->_FFMPEG.' -version';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -72,7 +73,7 @@ class Sonus
 	public function getSupportedFormats()
 	{
 		// Run terminal command
-		$command = $this->FFMPEG.' -formats';
+		$command = $this->_FFMPEG.' -formats';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -91,7 +92,7 @@ class Sonus
 	public function getSupportedAudioEncoders()
 	{
 		// Run terminal command
-		$command = $this->FFMPEG.' -encoders';
+		$command = $this->_FFMPEG.' -encoders';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -107,7 +108,7 @@ class Sonus
 	public function getSupportedVideoEncoders()
 	{
 		// Run terminal command
-		$command = $this->FFMPEG.' -encoders';
+		$command = $this->_FFMPEG.' -encoders';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -123,7 +124,7 @@ class Sonus
 	public function getSupportedAudioDecoders()
 	{
 		// Run terminal command
-		$command = $this->FFMPEG.' -decoders';
+		$command = $this->_FFMPEG.' -decoders';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -139,7 +140,7 @@ class Sonus
 	public function getSupportedVideoDecoders()
 	{
 		// Run terminal command
-		$command = $this->FFMPEG.' -decoders';
+		$command = $this->_FFMPEG.' -decoders';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -194,7 +195,7 @@ class Sonus
 	public static function getMediaInfo($filepath)
 	{
 		$app	 = new Sonus;
-		$command = $app->FFMPEG.' -i '.$filepath.' 2>&1';
+		$command = $app->_FFMPEG.' -i '.$filepath.' 2>&1';
 		$output  = shell_exec($command);
 
 		$metadata 	= self::_extractFromString($output, 'Metadata:', 'encoder');  // TODO: Test with a file that has metadata
