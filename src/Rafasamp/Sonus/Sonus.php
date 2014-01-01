@@ -234,14 +234,14 @@ class Sonus extends SonusBase
 	 */
 	public static function getMediaInfo($filepath)
 	{
-		$command = self::getConverterPath().' -i '.$filepath.' 2>&1';
-		$output  = shell_exec($command);
+		$command  = self::getConverterPath().' -i '.$filepath.' 2>&1';
+		$output   = shell_exec($command);
 
-		$metadata 	= self::_extractFromString($output, 'Metadata:', 'encoder');  // TODO: Test with a file that has metadata
-		$duration 	= self::_extractFromString($output, 'Duration:', ', start:'); // TODO: Return hh:mm:ss.mm as array
-		$bitrate 	= self::_extractFromString($output, 'bitrate:', ' Stream');
-		$video 		= self::_extractFromString($output, 'Video:', ' Stream', true);
-		$audio 		= self::_extractFromString($output, 'Audio:', 'At least', true);
+		$metadata = self::_extractFromString($output, 'Metadata:', 'encoder');  // TODO: Test with a file that has metadata
+		$duration = self::_extractFromString($output, 'Duration:', ', start:'); // TODO: Return hh:mm:ss.mm as array
+		$bitrate  = self::_extractFromString($output, 'bitrate:', ' Stream');
+		$video    = self::_extractFromString($output, 'Video:', ' Stream', true);
+		$audio    = self::_extractFromString($output, 'Audio:', 'At least', true);
 
 		$output 	= array(
 			"Metadata" => $metadata,
