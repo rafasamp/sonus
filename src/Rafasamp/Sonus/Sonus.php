@@ -253,4 +253,24 @@ class Sonus extends SonusBase
 		return $output;
 	}
 
+	/**
+	 * Sets the audio channel as stereo or mono
+	 * https://trac.ffmpeg.org/wiki/AudioChannelManipulation
+	 * @param string $var
+	 * @return boolean
+	 */
+	protected function SONUS_AUDIO_CHANNELS($var)
+	{
+		switch ($var) {
+			case 'stereo':
+				array_push($this->parameters, '-ac 2');
+				return true;
+			case 'mono':
+				array_push($this->parameters, '-ac 1');
+				return true;
+			default:
+				return false;
+		}
+	}
+
 }
