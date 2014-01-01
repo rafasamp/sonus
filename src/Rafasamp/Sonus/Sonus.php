@@ -256,6 +256,28 @@ class Sonus extends SonusBase
 	/**
 
 	/**
+	 * Sets the codec used for the audio conversion
+	 * https://trac.ffmpeg.org/wiki/AACEncodingGuide
+	 * https://trac.ffmpeg.org/wiki/Encoding%20VBR%20(Variable%20Bit%20Rate)%20mp3%20audio
+	 * @param   string $var ffmpeg codec name
+	 * @return  boolean
+	 */
+	protected function SONUS_AUDIO_CODEC($var)
+	{
+		switch ($var) {
+			case 'libfdk_aac':
+				array_push($this->parameters, '-c:a libfdk_aac');
+				return true;
+			case 'libmp3lame':
+				array_push($this->parameters, '-c:a libmp3lame');
+				return true;
+			default:
+				return false;
+				break;
+		}
+	}
+
+	/**
 	 * Sets the constant audio bitrate
 	 * https://trac.ffmpeg.org/wiki/AACEncodingGuide
 	 * https://trac.ffmpeg.org/wiki/Encoding%20VBR%20(Variable%20Bit%20Rate)%20mp3%20audio
