@@ -254,6 +254,26 @@ class Sonus extends SonusBase
 	}
 
 	/**
+
+	/**
+	 * Sets the constant audio bitrate
+	 * https://trac.ffmpeg.org/wiki/AACEncodingGuide
+	 * https://trac.ffmpeg.org/wiki/Encoding%20VBR%20(Variable%20Bit%20Rate)%20mp3%20audio
+	 * @param int $var bitrate
+	 * @return boolean
+	 */
+	protected function SONUS_AUDIO_CONSTANT_BITRATE($var)
+	{
+		// Value must be numeric
+		if (is_numeric($var)) {
+			array_push($this->parameters, '-b:a '.$var.'k');
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * Sets the audio channel as stereo or mono
 	 * https://trac.ffmpeg.org/wiki/AudioChannelManipulation
 	 * @param string $var
