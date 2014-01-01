@@ -254,6 +254,34 @@ class Sonus extends SonusBase
 	}
 
 	/**
+	 * Contains the combination of all parameters set by the user
+	 * @var array
+	 */
+	protected $parameters = array();
+
+	/**
+	 * Sets encoding parameters for the job
+	 * @param  string $const parameter
+	 * @param  string $arg   argument
+	 * @return boolean
+	 */
+	public function parameter($const, $arg)
+	{
+		switch ($const) {
+			case 'SONUS_AUDIO_CODEC':
+				return $this->SONUS_AUDIO_CODEC($arg);
+				break;
+			case 'SONUS_AUDIO_CONSTANT_BITRATE':
+				return $this->SONUS_AUDIO_CONSTANT_BITRATE($arg);
+				break;
+			case 'SONUS_AUDIO_CHANNELS':
+				return $this->SONUS_AUDIO_CHANNELS($arg);
+				break;
+			default:
+				return false;
+				break;
+		}
+	}
 
 	/**
 	 * Sets the codec used for the audio conversion
