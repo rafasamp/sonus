@@ -15,23 +15,16 @@ use Config;
 
 class Sonus
 {
-
-	protected $_FFMPEG;
-	protected $_OS;
-
 	public function __construct()
 	{
-		// Assign FFMPEG path
-		$this->_FFMPEG = Config::get('sonus::ffmpeg');
-
-		// Return server operating system
-		$this->_OS = strtoupper(substr(php_uname(), 0, 3));
+		// Server operating system
+		$server_os = strtoupper(substr(php_uname(), 0, 3));
 
 		// Return supported operating systems
-		$supported = Config::get('sonus::supported_os');
+		$supported_os = Config::get('sonus::supported_os');
 
 		// Check if OS is supported
-		if (!in_array($this->_OS, $supported)) {
+		if (!in_array($server_os, $supported_os)) {
 			// This OS is unsupported
 			die('Unsupported operating system');
 		}
@@ -41,19 +34,19 @@ class Sonus
 	 * Returns full path of FFMPEG
 	 * @return string
 	 */
-	public function getConverterPath()
+	protected static function getConverterPath()
 	{
-		return $this->_FFMPEG;
+		return Config::get('sonus::ffmpeg');
 	}
 
 	/**
 	 * Returns installed FFMPEG version
 	 * @return array
 	 */
-	public function getConverterVersion()
+	public static function getConverterVersion()
 	{
 		// Run terminal command to retrieve version
-		$command = $this->_FFMPEG.' -version';
+		$command = self::getConverterPath().' -version';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -73,10 +66,10 @@ class Sonus
 	 * Returns all formats FFMPEG supports
 	 * @return array
 	 */
-	public function getSupportedFormats()
+	public static function getSupportedFormats()
 	{
 		// Run terminal command
-		$command = $this->_FFMPEG.' -formats';
+		$command = self::getConverterPath().' -formats';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -92,10 +85,10 @@ class Sonus
 	 * Returns all audio formats FFMPEG can encode
 	 * @return array
 	 */
-	public function getSupportedAudioEncoders()
+	public static function getSupportedAudioEncoders()
 	{
 		// Run terminal command
-		$command = $this->_FFMPEG.' -encoders';
+		$command = self::getConverterPath().' -encoders';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -108,10 +101,10 @@ class Sonus
 	 * Returns all video formats FFMPEG can encode
 	 * @return array
 	 */
-	public function getSupportedVideoEncoders()
+	public static function getSupportedVideoEncoders()
 	{
 		// Run terminal command
-		$command = $this->_FFMPEG.' -encoders';
+		$command = self::getConverterPath().' -encoders';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -124,10 +117,10 @@ class Sonus
 	 * Returns all audio formats FFMPEG can decode
 	 * @return array
 	 */
-	public function getSupportedAudioDecoders()
+	public static function getSupportedAudioDecoders()
 	{
 		// Run terminal command
-		$command = $this->_FFMPEG.' -decoders';
+		$command = self::getConverterPath().' -decoders';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -140,10 +133,10 @@ class Sonus
 	 * Returns all video formats FFMPEG can decode
 	 * @return array
 	 */
-	public function getSupportedVideoDecoders()
+	public static function getSupportedVideoDecoders()
 	{
 		// Run terminal command
-		$command = $this->_FFMPEG.' -decoders';
+		$command = self::getConverterPath().' -decoders';
 		$output  = shell_exec($command);
 
 		// PREG pattern to retrive version information
@@ -159,9 +152,7 @@ class Sonus
 	 */
 	public static function canEncode($format)
 	{
-		// Get an array with all supported encoding formats
-		$app     = new Sonus;
-		$formats = array_merge($app->getSupportedAudioEncoders(), $app->getSupportedVideoEncoders());
+		$formats = array_merge(self::getSupportedAudioEncoders(), self::getSupportedVideoEncoders());
 
 		// Return boolean if they can be encoded or not
 		if(!in_array($format, $formats)) {
@@ -179,8 +170,7 @@ class Sonus
 	public static function canDecode($format)
 	{
 		// Get an array with all supported encoding formats
-		$app     = new Sonus;
-		$formats = array_merge($app->getSupportedAudioDecoders(), $app->getSupportedVideoDecoders());
+		$formats = array_merge(self::getSupportedAudioDecoders(), self::getSupportedVideoDecoders());
 
 		// Return boolean if they can be encoded or not
 		if(!in_array($format, $formats)) {
@@ -197,8 +187,7 @@ class Sonus
 	 */
 	public static function getMediaInfo($filepath)
 	{
-		$app	 = new Sonus;
-		$command = $app->_FFMPEG.' -i '.$filepath.' 2>&1';
+		$command = self::getConverterPath().' -i '.$filepath.' 2>&1';
 		$output  = shell_exec($command);
 
 		$metadata 	= self::_extractFromString($output, 'Metadata:', 'encoder');  // TODO: Test with a file that has metadata
