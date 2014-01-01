@@ -72,27 +72,11 @@ class SonusBase {
 		}
 
 		return $output;
-
 	}
 }
 
 class Sonus extends SonusBase
 {
-	public function __construct()
-	{
-		// Server operating system
-		$server_os = strtoupper(substr(php_uname(), 0, 3));
-
-		// Return supported operating systems
-		$supported_os = Config::get('sonus::supported_os');
-
-		// Check if OS is supported
-		if (!in_array($server_os, $supported_os)) {
-			// This OS is unsupported
-			die('Unsupported operating system');
-		}
-	}
-
 	/**
 	 * Returns full path of FFMPEG
 	 * @return string
