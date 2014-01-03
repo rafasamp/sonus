@@ -271,12 +271,59 @@ class Sonus extends SonusBase
 			case 'SONUS_AUDIO_CODEC':
 				return $this->SONUS_AUDIO_CODEC($arg);
 				break;
+
 			case 'SONUS_AUDIO_CONSTANT_BITRATE':
 				return $this->SONUS_AUDIO_CONSTANT_BITRATE($arg);
 				break;
+
 			case 'SONUS_AUDIO_CHANNELS':
 				return $this->SONUS_AUDIO_CHANNELS($arg);
 				break;
+
+			case 'SONUS_AUDIO_FREQUENCY':
+				return $this->SONUS_AUDIO_FREQUENCY($arg);
+				break;
+
+			default:
+				return false;
+				break;
+		}
+	}
+
+	public function execute($input, $output, $arg = null)
+	{
+		// Assign converter path
+		$ffmpeg = self::getConverterPath();
+
+		// Insert input flag
+		$input  = '-i '.$input;
+
+		// Check if user provided raw arguments
+		if (is_null($arg)) {
+			// If not, use the prepared arguments
+			$arg = implode(" ", $this->parameters);
+		}
+
+		// Prepare the command
+		$cmd    = escapeshellcmd($ffmpeg.' '.$input.' '.$arg.' '.$output);
+
+		// Get OS version
+		$os     = self::_serverOS();
+
+		// Initiate a command compatible with each OS
+		switch ($os) {
+			case 'WIN':
+				return $cmd;
+				break;
+			
+			case 'DAR':
+				# code...
+				break;
+
+			case 'LIN':
+				# code...
+				break;
+
 			default:
 				return false;
 				break;
@@ -296,9 +343,11 @@ class Sonus extends SonusBase
 			case 'libfdk_aac':
 				array_push($this->parameters, '-c:a libfdk_aac');
 				return true;
+
 			case 'libmp3lame':
 				array_push($this->parameters, '-c:a libmp3lame');
 				return true;
+
 			default:
 				return false;
 				break;
@@ -335,11 +384,30 @@ class Sonus extends SonusBase
 			case 'stereo':
 				array_push($this->parameters, '-ac 2');
 				return true;
+
 			case 'mono':
 				array_push($this->parameters, '-ac 1');
 				return true;
+
 			default:
 				return false;
+		}
+	}
+
+	/**
+	 * Sets audio frequency rate
+	 * http://ffmpeg.org/ffmpeg.html#Audio-Options
+	 * @param int $var frequency
+	 * @return boolean
+	 */
+	protected function SONUS_AUDIO_FREQUENCY($var)
+	{
+		// Value must be numeric
+		if (is_numeric($var)) {
+			array_push($this->parameters, '-ar:a '.$var);
+			return true;
+		} else {
+			return false;
 		}
 	}
 
