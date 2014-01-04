@@ -339,18 +339,11 @@ class Sonus extends SonusBase
 	 */
 	protected function SONUS_AUDIO_CODEC($var)
 	{
-		switch ($var) {
-			case 'libfdk_aac':
-				array_push($this->parameters, '-c:a libfdk_aac');
-				return true;
-
-			case 'libmp3lame':
-				array_push($this->parameters, '-c:a libmp3lame');
-				return true;
-
-			default:
-				return false;
-				break;
+		if (!is_null($var)) {
+			array_push($this->parameters, '-c:a '.$var);
+			return true;
+		} else {
+			return false;
 		}
 	}
 
