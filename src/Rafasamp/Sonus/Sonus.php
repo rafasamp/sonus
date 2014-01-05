@@ -254,6 +254,18 @@ class Sonus extends SonusBase
 	}
 
 	/**
+	 * Input files
+	 * @var array
+	 */
+	protected $input = array();
+
+	/**
+	 * Output files
+	 * @var array
+	 */
+	protected $output = array();
+
+	/**
 	 * Contains the combination of all parameters set by the user
 	 * @var array
 	 */
@@ -265,19 +277,61 @@ class Sonus extends SonusBase
 	 */
 	protected $progress;
 
-	public function execute($input, $output, $arg = null)
+	/**
+	 * Returns object instance for chainable methods
+	 * @return object
+	 */
+	public static function convert() {
+		$sonus = new Sonus;
+		return $sonus;
+	}
+
+	/**
+	 * Adds an input file
+	 * @param  string $var filename
+	 * @return boolean
+	 */
+	public function input($var)
+	{
+		if (!is_string($var)) {
+			return false;
+
+		} else {
+			array_push($this->input, '-i '.$var);
+			return $this;
+		}
+	}
+
+	/**
+	 * Adds an output file
+	 * @param  string $var filename
+	 * @return boolean
+	 */
+	public function output($var)
+	{
+		if (!is_string($var)) {
+			return false;
+
+		} else {
+			array_push($this->output, $var);
+			return $this;
+		}
+	}
+
+	public function execute($arg = null)
 	{
 		// Assign converter path
 		$ffmpeg = self::getConverterPath();
-
-		// Insert input flag
-		$input  = '-i '.$input;
 
 		// Check if user provided raw arguments
 		if (is_null($arg)) {
 			// If not, use the prepared arguments
 			$arg = implode(" ", $this->parameters);
 		}
+
+		// Return input and output files
+		$input  = implode(" ", $this->input);
+		$output = implode(" ", $this->output);
 
 		// Prepare the command
 		$cmd    = escapeshellcmd($ffmpeg.' '.$input.' '.$arg.' '.$output);
@@ -322,15 +376,17 @@ class Sonus extends SonusBase
 			return false;
 
 		} else {
-			switch($var) {
+			switch($type) {
 				case 'audio':
 					array_push($this->parameters, '-c:a '.$var);
 					return $this;
 					break;
+
 				case 'video':
 					array_push($this->parameters, '-c:v '.$var);
 					return $this;
 					break;
+
 				default:
 					return false;
 					break;
@@ -352,15 +408,17 @@ class Sonus extends SonusBase
 			return false;
 
 		} else {
-			switch ($var) {
+			switch ($type) {
 				case 'audio':
 					array_push($this->parameters, '-b:a '.$var.'k');
 					return $this;
 					break;
+
 				case 'video':
 					array_push($this->parameters, '-b:v '.$var.'k');
 					return $this;
 					break;
+
 				default:
 					return false;
 					break;
