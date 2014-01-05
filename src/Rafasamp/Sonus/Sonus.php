@@ -285,6 +285,10 @@ class Sonus extends SonusBase
 		// Get OS version
 		$os     = self::_serverOS();
 
+		// Publish progress to this ID
+		$this->progress = md5($cmd);
+		$cmd            = $cmd.' -progress '.$this->progress.'.txt';
+
 		// Initiate a command compatible with each OS
 		switch ($os) {
 			case 'WIN':
@@ -292,11 +296,11 @@ class Sonus extends SonusBase
 				break;
 			
 			case 'DAR':
-				# code...
+				return $cmd.' 2>&1';
 				break;
 
 			case 'LIN':
-				# code...
+				return shell_exec($cmd.' 2>&1');
 				break;
 
 			default:
