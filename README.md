@@ -24,7 +24,7 @@ Here is a simple example of a file being converted from FLAC to AAC:
 
 Sonus can also convert video files:
 
-	Sonus::convert()->input('foo.avi')->bitrate(300, 'video')->output('bar.flv');
+	Sonus::convert()->input('foo.avi')->bitrate(300, 'video')->output('bar.flv')->go();
 
 Although Sonus contains several preset parameters, you can also pass your own
 
