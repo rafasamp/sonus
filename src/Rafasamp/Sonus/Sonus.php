@@ -310,59 +310,78 @@ class Sonus extends SonusBase
 	}
 
 	/**
-	 * Sets the codec used for the audio conversion
+	 * Sets the codec used for the conversion
 	 * https://trac.ffmpeg.org/wiki/AACEncodingGuide
 	 * https://trac.ffmpeg.org/wiki/Encoding%20VBR%20(Variable%20Bit%20Rate)%20mp3%20audio
 	 * @param   string $var ffmpeg codec name
 	 * @return  boolean
 	 */
-	protected function SONUS_AUDIO_CODEC($var)
+	public function codec($var, $type = 'audio')
 	{
-		if (!is_null($var)) {
-			array_push($this->parameters, '-c:a '.$var);
-			return true;
-		} else {
+		if (is_null($var)) {
 			return false;
+
+		} else {
+			switch($var) {
+				case 'audio':
+					array_push($this->parameters, '-c:a '.$var);
+					return $this;
+					break;
+				case 'video':
+					array_push($this->parameters, '-c:v '.$var);
+					return $this;
+					break;
+				default:
+					return false;
+					break;
+			}
 		}
 	}
 
 	/**
-	 * Sets the constant audio bitrate
+	 * Sets the constant bitrate
 	 * https://trac.ffmpeg.org/wiki/AACEncodingGuide
 	 * https://trac.ffmpeg.org/wiki/Encoding%20VBR%20(Variable%20Bit%20Rate)%20mp3%20audio
 	 * @param int $var bitrate
 	 * @return boolean
 	 */
-	protected function SONUS_AUDIO_CONSTANT_BITRATE($var)
+	public function bitrate($var, $type = 'audio')
 	{
 		// Value must be numeric
-		if (is_numeric($var)) {
-			array_push($this->parameters, '-b:a '.$var.'k');
-			return true;
-		} else {
+		if (!is_numeric($var)) {
 			return false;
+
+		} else {
+			switch ($var) {
+				case 'audio':
+					array_push($this->parameters, '-b:a '.$var.'k');
+					return $this;
+					break;
+				case 'video':
+					array_push($this->parameters, '-b:v '.$var.'k');
+					return $this;
+					break;
+				default:
+					return false;
+					break;
+			}			
 		}
 	}
 
 	/**
-	 * Sets the audio channel as stereo or mono
+	 * Sets the number of audio channels
 	 * https://trac.ffmpeg.org/wiki/AudioChannelManipulation
 	 * @param string $var
 	 * @return boolean
 	 */
-	protected function SONUS_AUDIO_CHANNELS($var)
+	public function channels($var)
 	{
-		switch ($var) {
-			case 'stereo':
-				array_push($this->parameters, '-ac 2');
-				return true;
+		if (!is_numeric($var)) {
+			return false;
 
-			case 'mono':
-				array_push($this->parameters, '-ac 1');
-				return true;
-
-			default:
-				return false;
+		} else {
+			array_push($this->parameters, '-ac '.$var);
+			return $this;
 		}
 	}
 
@@ -372,14 +391,15 @@ class Sonus extends SonusBase
 	 * @param int $var frequency
 	 * @return boolean
 	 */
-	protected function SONUS_AUDIO_FREQUENCY($var)
+	public function frequency($var)
 	{
 		// Value must be numeric
-		if (is_numeric($var)) {
-			array_push($this->parameters, '-ar:a '.$var);
-			return true;
-		} else {
+		if (!is_numeric($var)) {
 			return false;
+
+		} else {
+			array_push($this->parameters, '-ar:a '.$var);
+			return $this;
 		}
 	}
 
