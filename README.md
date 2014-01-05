@@ -1,7 +1,6 @@
 # Sonus (Laravel 4 Package)
 [![Build Status](https://travis-ci.org/rafasamp/sonus.png?branch=master)](https://travis-ci.org/rafasamp/sonus)
 [![ProjectStatus](http://stillmaintained.com/rafasamp/sonus.png)](http://stillmaintained.com/rafasamp/sonus)
-=====
 
 Sonus is an attempt to integrate FFMPEG with **Laravel 4** and was born out of my frustration when trying to perform simple conversion tasks from within my project.
 
