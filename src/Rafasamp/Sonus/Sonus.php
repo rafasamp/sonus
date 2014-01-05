@@ -260,35 +260,10 @@ class Sonus extends SonusBase
 	protected $parameters = array();
 
 	/**
-	 * Sets encoding parameters for the job
-	 * @param  string $const parameter
-	 * @param  string $arg   argument
-	 * @return boolean
+	 * Contains the job progress id
+	 * @var string
 	 */
-	public function parameter($const, $arg)
-	{
-		switch ($const) {
-			case 'SONUS_AUDIO_CODEC':
-				return $this->SONUS_AUDIO_CODEC($arg);
-				break;
-
-			case 'SONUS_AUDIO_CONSTANT_BITRATE':
-				return $this->SONUS_AUDIO_CONSTANT_BITRATE($arg);
-				break;
-
-			case 'SONUS_AUDIO_CHANNELS':
-				return $this->SONUS_AUDIO_CHANNELS($arg);
-				break;
-
-			case 'SONUS_AUDIO_FREQUENCY':
-				return $this->SONUS_AUDIO_FREQUENCY($arg);
-				break;
-
-			default:
-				return false;
-				break;
-		}
-	}
+	protected $progress;
 
 	public function execute($input, $output, $arg = null)
 	{
