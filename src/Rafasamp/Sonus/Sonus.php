@@ -319,6 +319,46 @@ class Sonus extends SonusBase
 	}
 
 	/**
+	 * Overwrite output file if it exists
+	 * @param  boolean $var
+	 * @return boolean
+	 */
+	public function overwrite($var = true)
+	{
+		switch ($var) {
+			case true:
+				array_push($this->parameters, '-y');
+				return $this;
+				break;
+
+			case false:
+				array_push($this->parameters, '-n');
+				return $this;
+				break;
+
+			default:
+				return false;
+				break;
+		}
+	}
+
+	/**
+	 * Stop running FFMPEG after X seconds
+	 * @param  int $var seconds
+	 * @return boolean
+	 */
+	public function timelimit($var)
+	{
+		if (!is_numeric($var)) {
+			return false;
+
+		} else {
+			array_push($this->parameters, '-timelimit '.$var);
+			return $this;
+		}
+	}
+
+	/**
 	 * Sets the codec used for the conversion
 	 * https://trac.ffmpeg.org/wiki/AACEncodingGuide
 	 * https://trac.ffmpeg.org/wiki/Encoding%20VBR%20(Variable%20Bit%20Rate)%20mp3%20audio
@@ -351,8 +391,6 @@ class Sonus extends SonusBase
 
 	/**
 	 * Sets the constant bitrate
-	 * https://trac.ffmpeg.org/wiki/AACEncodingGuide
-	 * https://trac.ffmpeg.org/wiki/Encoding%20VBR%20(Variable%20Bit%20Rate)%20mp3%20audio
 	 * @param int $var bitrate
 	 * @return boolean
 	 */
@@ -450,11 +488,11 @@ class Sonus extends SonusBase
 		// Initiate a command compatible with each OS
 		switch ($os) {
 			case 'WIN':
-				return $cmd;
+				return shell_exec($cmd);
 				break;
 			
 			case 'DAR':
-				return $cmd.' 2>&1';
+				return shell_exec($cmd.' 2>&1');
 				break;
 
 			case 'LIN':
