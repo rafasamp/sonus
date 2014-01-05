@@ -9,7 +9,7 @@ use Config;
  *
  * @package    Laravel
  * @category   Bundle
- * @version    0.1
+ * @version    0.2
  * @author     Rafael Sampaio <rafaelsampaio@live.com>
  */
 
@@ -318,51 +318,6 @@ class Sonus extends SonusBase
 		}
 	}
 
-	public function execute($arg = null)
-	{
-		// Assign converter path
-		$ffmpeg = self::getConverterPath();
-
-		// Check if user provided raw arguments
-		if (is_null($arg)) {
-			// If not, use the prepared arguments
-			$arg = implode(" ", $this->parameters);
-		}
-
-		// Return input and output files
-		$input  = implode(" ", $this->input);
-		$output = implode(" ", $this->output);
-
-		// Prepare the command
-		$cmd    = escapeshellcmd($ffmpeg.' '.$input.' '.$arg.' '.$output);
-
-		// Get OS version
-		$os     = self::_serverOS();
-
-		// Publish progress to this ID
-		$this->progress = md5($cmd);
-		$cmd            = $cmd.' -progress '.$this->progress.'.txt';
-
-		// Initiate a command compatible with each OS
-		switch ($os) {
-			case 'WIN':
-				return $cmd;
-				break;
-			
-			case 'DAR':
-				return $cmd.' 2>&1';
-				break;
-
-			case 'LIN':
-				return shell_exec($cmd.' 2>&1');
-				break;
-
-			default:
-				return false;
-				break;
-		}
-	}
-
 	/**
 	 * Sets the codec used for the conversion
 	 * https://trac.ffmpeg.org/wiki/AACEncodingGuide
@@ -461,4 +416,54 @@ class Sonus extends SonusBase
 		}
 	}
 
+	/**
+	 * Performs conversion
+	 * @param  string $arg user arguments
+	 * @return string      tracking code
+	 * @return boolean     false on error
+	 */
+	public function go($arg = null)
+	{
+		// Assign converter path
+		$ffmpeg = self::getConverterPath();
+
+		// Check if user provided raw arguments
+		if (is_null($arg)) {
+			// If not, use the prepared arguments
+			$arg = implode(" ", $this->parameters);
+		}
+
+		// Return input and output files
+		$input  = implode(" ", $this->input);
+		$output = implode(" ", $this->output);
+
+		// Prepare the command
+		$cmd    = escapeshellcmd($ffmpeg.' '.$input.' '.$arg.' '.$output);
+
+		// Get OS version
+		$os     = self::_serverOS();
+
+		// Publish progress to this ID
+		$this->progress = md5($cmd);
+		$cmd            = $cmd.' -progress '.$this->progress.'.txt';
+
+		// Initiate a command compatible with each OS
+		switch ($os) {
+			case 'WIN':
+				return $cmd;
+				break;
+			
+			case 'DAR':
+				return $cmd.' 2>&1';
+				break;
+
+			case 'LIN':
+				return shell_exec($cmd.' 2>&1');
+				break;
+
+			default:
+				return false;
+				break;
+		}
+	}
 }
