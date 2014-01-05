@@ -481,9 +481,12 @@ class Sonus extends SonusBase
 		// Get OS version
 		$os     = self::_serverOS();
 
-		// Publish progress to this ID
-		$this->progress = md5($cmd);
-		$cmd            = $cmd.' -progress '.$this->progress.'.txt';
+		// Check if progress reporting is enabled
+		if (Config::get('sonus::progress') === true) {
+			// Publish progress to this ID
+			$this->progress = md5($cmd);
+			$cmd            = $cmd.' -progress '.$this->progress.'.txt';
+		}
 
 		// Initiate a command compatible with each OS
 		switch ($os) {

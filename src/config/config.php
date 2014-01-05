@@ -29,6 +29,22 @@ return array(
 	|
 	*/
 
-   'supported_os'  => array('WIN', 'LIN', 'DAR')
+   'supported_os'  => array('WIN', 'LIN', 'DAR'),
+
+   /*
+	|--------------------------------------------------------------------------
+	| Progress monitoring
+	|--------------------------------------------------------------------------
+	|
+	| FFMPEG supports outputing progress to HTTP. Problem is, PHP can't really
+	| handle chunked POST requests. Therefore the solution is to output progress
+	| to a text file and track the job by reading it live.
+	|
+	| If you would like to let your users know of the progress on active running
+	| conversions set this flag to true.
+	|
+	*/
+
+   'progress'      => true
 
 );
