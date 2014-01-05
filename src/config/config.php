@@ -28,6 +28,7 @@ return array(
 	| agains the array below.
 	|
 	*/
+
    'supported_os'  => array('WIN', 'LIN', 'DAR')
 
 );
