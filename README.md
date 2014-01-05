@@ -10,8 +10,6 @@ Although Sonus supports video conversion, the project focus is to fully implemen
 
 This package is being actively developed and may break at any time. Integration on a production environment is discouraged at this point.
 
-## Features
-
 ## Quick Start
 
 ### Setup
@@ -71,6 +69,11 @@ Sonus can also convert video files:
 Although Sonus contains several preset parameters, you can also pass your own
 
 	Sonus::convert()->input('foo.flac')->output('bar.mp3')->go('-b:a 64k -ac 1');
+
+### Planned features
+* Live progress monitoring
+* Support for [filters](http://ffmpeg.mplayerhq.hu/ffmpeg-filters.html)
+* Video thumbnail generator
 
 ## License
 
