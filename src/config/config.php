@@ -13,7 +13,20 @@ return array(
 	|
 	*/
    
-   'ffmpeg'        => '/Applications/XAMPP/xamppfiles/htdocs/laravel/public/ffmpeg',
+   'ffmpeg'        => 'C:/ffmpeg/bin/ffmpeg.exe',
+
+    /*
+	|--------------------------------------------------------------------------
+	| FFPROBE System Path
+	|--------------------------------------------------------------------------
+	|
+	| We need to know the fully qualified system path to where ffprobe
+	| lives on this server. This is the same path you would time in
+	| terminal to access FFPROBE.
+	|
+	*/
+
+   'ffprobe'       => 'C:/ffmpeg/bin/ffprobe.exe',
 
    /*
 	|--------------------------------------------------------------------------
