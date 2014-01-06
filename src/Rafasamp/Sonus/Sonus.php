@@ -73,6 +73,20 @@ class SonusBase {
 
 		return $output;
 	}
+
+	/**
+	 * Extracts milliseconds from HH:MM:SS string
+	 * @param  string HH:MM:SS formatted value
+	 * @return string
+	 */
+	protected static function _extractMilliseconds($string)
+	{
+		// Extract hour, minute, and seconds
+		$time = explode(":", $string);
+		// Convert to milliseconds
+		$ms   = ($time[0] * 3600000) + ($time[1] * 60000) + ($time[2] * 1000);
+		return $ms;
+	}
 }
 
 class Sonus extends SonusBase
@@ -248,7 +262,7 @@ class Sonus extends SonusBase
 			$input = substr($input, 3);
 		}
 
-		$command  = self::getProbePath().' -v quiet -print_format json -show_format -show_streams -i '.$input.' 2>&1';
+		$command  = self::getProbePath().' -v quiet -print_format json -show_format -show_streams -pretty -i '.$input.' 2>&1';
 		$output   = shell_exec($command);
 
 		switch ($type) {
@@ -496,7 +510,9 @@ class Sonus extends SonusBase
 		if (Config::get('sonus::progress') === true) {
 			// Publish progress to this ID
 			$this->progress = md5($cmd);
-			$cmd            = $cmd.' -progress '.$this->progress.'.txt';
+			$cmd = $cmd.' -progress '.$this->progress.'.txt';
+			// Get input time
+			$time = self::getMediainfo($input);
 		}
 
 		// Initiate a command compatible with each OS
