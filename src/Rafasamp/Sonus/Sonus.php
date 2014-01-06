@@ -241,14 +241,25 @@ class Sonus extends SonusBase
 	 * @param  string $input file input
 	 * @return array
 	 */
-	public static function getMediaInfo($input)
+	public static function getMediaInfo($input, $type = null)
 	{
-		if (substr($input, 0, 1) !== '-i') {
-			$input = '-i '.$input;
+		// Just making sure everything goes smooth
+		if (substr($input, 0, 2) == '-i') {
+			$input = substr($input, 3);
 		}
-		$command  = self::getProbePath().' -v quiet -print_format json -show_format -show_streams '.$input;
+
+		$command  = self::getProbePath().' -v quiet -print_format json -show_format -show_streams -i '.$input.' 2>&1';
 		$output   = shell_exec($command);
-		$output   = json_decode($output, true);
+
+		switch ($type) {
+			case 'json':
+				// do nothing
+				break;
+			
+			default:
+				$output = json_decode($output, true);
+				break;
+		}
 
 		return $output;
 	}
