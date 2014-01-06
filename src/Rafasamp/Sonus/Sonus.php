@@ -238,24 +238,17 @@ class Sonus extends SonusBase
 
 	/**
 	 * Returns array with file information
-	 * @param  string $filepath Full path to the file
+	 * @param  string $input file input
 	 * @return array
 	 */
-	public static function getMediaInfo($filepath)
+	public static function getMediaInfo($input)
 	{
-		$command  = self::getConverterPath().' -i '.$filepath.' 2>&1';
+		if (substr($input, 0, 1) !== '-i') {
+			$input = '-i '.$input;
+		}
+		$command  = self::getProbePath().' -v quiet -print_format json -show_format -show_streams '.$input;
 		$output   = shell_exec($command);
-
-		$duration = self::_extractFromString($output, 'Duration:', ', start:'); // TODO: Return hh:mm:ss.mm as array
-		$bitrate  = self::_extractFromString($output, 'bitrate:', ' Stream');
-		$video    = self::_extractFromString($output, 'Video:', ' Stream', true);
-		$audio    = self::_extractFromString($output, 'Audio:', 'At least', true);
-
-		$output 	= array(
-			"Duration" => $duration,
-			"Bitrate"  => $bitrate,
-			"Video"    => $video,
-			"Audio"    => $audio);
+		$output   = json_decode($output, true);
 
 		return $output;
 	}
