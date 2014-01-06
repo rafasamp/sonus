@@ -87,6 +87,15 @@ class Sonus extends SonusBase
 	}
 
 	/**
+	 * Returns full path of FFPROBE
+	 * @return string
+	 */
+	protected static function getProbePath()
+	{
+		return Config::Get('sonus::ffprobe');
+	}
+
+	/**
 	 * Returns installed FFMPEG version
 	 * @return array
 	 */
