@@ -50,13 +50,13 @@ class SonusBase {
 	protected static function _extractFromString($string, $start, $end, $array = false, $delimiter = ',')
 	{
 		// Get lenght of start string
-		$startLen  	= strlen($start);
+		$startLen = strlen($start);
 
 		// Return piece of string requested
-		$output 	= strstr(strstr($string, $start), $end, true);
+		$output   = strstr(strstr($string, $start), $end, true);
 
 		// Trim whitespace and remove start parameter
-		$output 	= trim(substr($output, $startLen));
+		$output   = trim(substr($output, $startLen));
 
 		// If requested, process output to array
 		if($array === true) {
@@ -290,8 +290,8 @@ class Sonus extends SonusBase
 
 		switch ($type) {
 			case 'json':
-		$command  = self::getProbePath().' -v quiet -print_format json -show_format -show_streams -pretty -i '.$input.' 2>&1';
-		$output   = shell_exec($command);
+				$command = self::getProbePath().' -v quiet -print_format json -show_format -show_streams -pretty -i '.$input.' 2>&1';
+				$output  = shell_exec($command);
 				break;
 
 			case 'xml':
@@ -307,11 +307,32 @@ class Sonus extends SonusBase
 			default:
 				$command = self::getProbePath().' -v quiet -print_format json -show_format -show_streams -pretty -i '.$input.' 2>&1';
 				$output  = shell_exec($command);
-				$output = json_decode($output, true);
+				$output  = json_decode($output, true);
 				break;
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Retrieves video thumbnails
+	 * @param  string  $input  video input
+	 * @param  string  $output output filename
+	 * @param  integer $count  number of thumbnails to generate
+	 * @param  string  $format thumbnail format
+	 * @return boolean
+	 */
+	public static function getThumbnails($input, $output, $count = 5, $format = 'png')
+	{
+		// User cannot request 0 frames
+		if ($count < 1) {
+			return false;
+		}
+
+		// Execute thumbnail generator command
+		$command = self::getConverterPath().' -i '.$input.' -vf "select=gt(scene\,0.5)" -frames:v '.$count.' -vsync vfr '.$output.'%02d.png';
+		shell_exec($command);
+		return true;
 	}
 
 	/**
