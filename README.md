@@ -48,9 +48,10 @@ Run the `artisan` command below to publish the configuration file:
 
 	$ php artisan config:publish rafasamp/Sonus
 
-And update the `FFMPEG` key to point at the __full path__ to FFMPEG:
+And update the `ffmpeg` and `ffprobe` key to point at the __full path__ to ffmpeg and ffprobe:
 
-	'ffmpeg'        => '/Applications/FFMPEG/ffmpeg'
+	'ffmpeg'        => '/Applications/ffmpeg/bin/ffmpeg',
+    'ffprobe'       => '/Applications/ffmpeg/bin/ffprobe',
 
 **Attention!**
 
