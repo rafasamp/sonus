@@ -75,11 +75,14 @@ Sonus can also return media information as an array or json
 
     Sonus::getMediaInfo('foo.mov');
 
+Sonus can also easily generate smart movie thumbnails like this
+
+    Sonus::getThumbnails('foo.mp4', 'foo-thumb' 5); // Yields 5 thumbnails
+
 ### Planned features
 
 * Live progress monitoring **Work in progress**
 * Support for [filters](http://ffmpeg.mplayerhq.hu/ffmpeg-filters.html)
-* Video thumbnail generator
 
 ## License
 
