@@ -583,17 +583,19 @@ class Sonus extends SonusBase
 				return shell_exec($cmd);
 				break;
 			
-			case 'DAR':
-				return shell_exec($cmd.' 2>&1');
-				break;
-
-			case 'LIN':
-				return shell_exec($cmd.' 2>&1');
-				break;
-
 			default:
-				return false;
+				return shell_exec($cmd.' 2>&1');
 				break;
 		}
+	}
+
+	/**
+	 * Returns given job progress
+	 * @param  string $job job id
+	 * @return array
+	 */
+	public static function getProgress($job)
+	{
+
 	}
 }
