@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/rafasamp/sonus.png?branch=master)](https://travis-ci.org/rafasamp/sonus)
 [![ProjectStatus](http://stillmaintained.com/rafasamp/sonus.png)](http://stillmaintained.com/rafasamp/sonus)
 
-Sonus is an attempt to integrate FFMPEG with **Laravel 4** and was born out of my frustration when trying to perform simple conversion tasks from within my project.
+Sonus is an attempt to integrate `ffmpeg` with **Laravel 4** and was born out of my frustration when trying to perform simple conversion tasks from within my project.
 
 Although Sonus supports video conversion, the project focus is to fully implement audio conversion before enhancing video compatibility.
 
@@ -71,8 +71,13 @@ Although Sonus contains several preset parameters, you can also pass your own
 
 	Sonus::convert()->input('foo.flac')->output('bar.mp3')->go('-b:a 64k -ac 1');
 
+Sonus can also return media information as an array or json
+
+    Sonus::getMediaInfo('foo.mov');
+
 ### Planned features
-* Live progress monitoring
+
+* Live progress monitoring **Work in progress**
 * Support for [filters](http://ffmpeg.mplayerhq.hu/ffmpeg-filters.html)
 * Video thumbnail generator
 
