@@ -80,13 +80,37 @@ class SonusBase {
 	 * @param  string HH:MM:SS formatted value
 	 * @return string
 	 */
-	protected static function _extractSeconds($string)
+	protected static function _timestampToSeconds($string)
 	{
 		// Extract hour, minute, and seconds
 		$time = explode(":", $string);
-		// Convert to milliseconds
-		$ms   = ($time[0] * 3600) + ($time[1] * 60) + (ceil($time[2]));
-		return $ms;
+		// Convert to seconds (round up to nearest second)
+		$secs = ($time[0] * 3600) + ($time[1] * 60) + (ceil($time[2]));
+		return $secs;
+	}
+
+	/**
+	 * Converts seconds to HH:MM:SS string
+	 * @param  integer $int seconds
+	 * @return string
+	 */
+	protected static function _secondsToTimestamp($int)
+	{
+		$output = date('H:i:s', mktime(0, 0, $int));
+		return $output;
+	}
+
+	/**
+	 * Returns percent completion of current conversion task
+	 * @param  integer $current current time in seconds
+	 * @param  integer $total   total time in seconds
+	 * @return integer
+	 */
+	protected static function _progressPercentage($current, $total)
+	{
+		// Round to the nearest percent
+		$output = ceil(($current / $total) * 100);
+		return $output;
 	}
 }
 
