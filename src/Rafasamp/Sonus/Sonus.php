@@ -10,7 +10,7 @@ use Database;
  *
  * @package    Laravel
  * @category   Bundle
- * @version    0.2
+ * @version    1.0
  * @author     Rafael Sampaio <rafaelsampaio@live.com>
  */
 
