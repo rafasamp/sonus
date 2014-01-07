@@ -75,16 +75,16 @@ class SonusBase {
 	}
 
 	/**
-	 * Extracts milliseconds from HH:MM:SS string
+	 * Extracts seconds from HH:MM:SS string
 	 * @param  string HH:MM:SS formatted value
 	 * @return string
 	 */
-	protected static function _extractMilliseconds($string)
+	protected static function _extractSeconds($string)
 	{
 		// Extract hour, minute, and seconds
 		$time = explode(":", $string);
 		// Convert to milliseconds
-		$ms   = ($time[0] * 3600000) + ($time[1] * 60000) + ($time[2] * 1000);
+		$ms   = ($time[0] * 3600) + ($time[1] * 60) + (ceil($time[2]));
 		return $ms;
 	}
 }
