@@ -1,6 +1,7 @@
 <?php namespace Rafasamp\Sonus;
 
 use Config;
+use Database;
 
 /**
  * Laravel Audio Conversion Package
@@ -511,8 +512,13 @@ class Sonus extends SonusBase
 			// Publish progress to this ID
 			$this->progress = md5($cmd);
 			$cmd = $cmd.' -progress '.$this->progress.'.txt';
+
 			// Get input time
 			$time = self::getMediainfo($input);
+			$time = $time['streams'][0]['duration'];
+
+			// Save to database
+			DB::insert('insert into sonusprogress (job, final_time) values (?, ?)', array($this->progress, $time));
 		}
 
 		// Initiate a command compatible with each OS

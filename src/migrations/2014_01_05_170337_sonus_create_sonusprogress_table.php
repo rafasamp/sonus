@@ -20,10 +20,10 @@ class SonusCreateSonusprogressTable extends Migration {
 			$table->integer('progress')->nullable();
 			// Current file size
 			$table->bigInteger('total_size')->nullable();
-			// Current progress in miliseconds
-			$table->bigInteger('current_time')->nullable();
-			// Final time in miliseconds
-			$table->bigInteger('final_time')->nullable();
+			// Current time
+			$table->string('current_time')->nullable();
+			// Final time
+			$table->string('final_time');
 			// Dropped frames
 			$table->bigInteger('drop_frames')->nullable();
 			// Timestamp
