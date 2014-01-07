@@ -278,7 +278,8 @@ class Sonus extends SonusBase
 	/**
 	 * Returns array with file information
 	 * @param  string $input file input
-	 * @return array
+	 * @param  string $type output format
+	 * @return array, json, xml, csv
 	 */
 	public static function getMediaInfo($input, $type = null)
 	{
@@ -287,15 +288,25 @@ class Sonus extends SonusBase
 			$input = substr($input, 3);
 		}
 
-		$command  = self::getProbePath().' -v quiet -print_format json -show_format -show_streams -pretty -i '.$input.' 2>&1';
-		$output   = shell_exec($command);
-
 		switch ($type) {
 			case 'json':
-				// do nothing
+		$command  = self::getProbePath().' -v quiet -print_format json -show_format -show_streams -pretty -i '.$input.' 2>&1';
+		$output   = shell_exec($command);
+				break;
+
+			case 'xml':
+				$command = self::getProbePath().' -v quiet -print_format xml -show_format -show_streams -pretty -i '.$input.' 2>&1';
+				$output  = shell_exec($command);
+				break;
+
+			case 'csv':
+				$command = self::getProbePath().' -v quiet -print_format csv -show_format -show_streams -pretty -i '.$input.' 2>&1';
+				$output  = shell_exec($command);
 				break;
 			
 			default:
+				$command = self::getProbePath().' -v quiet -print_format json -show_format -show_streams -pretty -i '.$input.' 2>&1';
+				$output  = shell_exec($command);
 				$output = json_decode($output, true);
 				break;
 		}
