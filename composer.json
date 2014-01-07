@@ -1,6 +1,8 @@
 {
     "name": "rafasamp/sonus",
-    "description": "A laravel implementation of ffmpeg for on-demand conversion",
+    "description": "A laravel audio and video conversion, thumbnail generator and metadata editor package powered by ffmpeg",
+    "keywords": ["laravel", "ffmpeg", "ffprobe", "converter"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Rafael Sampaio",
