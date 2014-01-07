@@ -13,7 +13,8 @@ return array(
 	|
 	*/
    
-   'ffmpeg'        => 'C:/ffmpeg/bin/ffmpeg.exe',
+   #'ffmpeg'        => 'C:/ffmpeg/bin/ffmpeg.exe',
+   'ffmpeg'		   => '/Applications/XAMPP/xamppfiles/htdocs/laravel/public/ffmpeg',
 
     /*
 	|--------------------------------------------------------------------------
@@ -26,7 +27,8 @@ return array(
 	|
 	*/
 
-   'ffprobe'       => 'C:/ffmpeg/bin/ffprobe.exe',
+   #'ffprobe'       => 'C:/ffmpeg/bin/ffprobe.exe',
+   'ffprobe'        => '/Applications/XAMPP/xamppfiles/htdocs/laravel/public/ffprobe',
 
    /*
 	|--------------------------------------------------------------------------
