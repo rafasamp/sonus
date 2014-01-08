@@ -1,7 +1,6 @@
 <?php namespace Rafasamp\Sonus;
 
 use Config;
-use Database;
 
 /**
  * Laravel Audio Conversion Package
