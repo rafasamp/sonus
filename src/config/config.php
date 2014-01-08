@@ -4,12 +4,12 @@ return array(
 
     /*
 	|--------------------------------------------------------------------------
-	| FFMPEG System Path
+	| ffmpeg System Path
 	|--------------------------------------------------------------------------
 	|
 	| We need to know the fully qualified system path to where ffmpeg
-	| lives on this server. This is the same path you would time in
-	| terminal to access ffmpeg.
+	| lives on this server. If you paste this path into your shell or
+	| command prompt you should get output from ffmpeg.
 	|
 	| Examples:
 	| Windows: 'C:/ffmpeg/bin/ffmpeg.exe'
@@ -18,20 +18,20 @@ return array(
 	|
 	*/
    
-   'ffmpeg'		   => '/Applications/XAMPP/xamppfiles/htdocs/laravel/public/ffmpeg',
+   'ffmpeg'		   => '',
 
     /*
 	|--------------------------------------------------------------------------
-	| FFPROBE System Path
+	| ffprobe System Path
 	|--------------------------------------------------------------------------
 	|
 	| We need to know the fully qualified system path to where ffprobe
-	| lives on this server. This is the same path you would time in
-	| terminal to access ffmpeg.
+	| lives on this server. If you paste this path into your shell or
+	| command prompt you should get output from ffprobe.
 	|
 	*/
 
-   'ffprobe'        => '/Applications/XAMPP/xamppfiles/htdocs/laravel/public/ffprobe',
+   'ffprobe'        => '',
 
    /*
 	|--------------------------------------------------------------------------
@@ -47,7 +47,7 @@ return array(
 	|
 	*/
 
-   'progress'      => true,
+   'progress'      => false,
 
    /*
 	|--------------------------------------------------------------------------
@@ -58,7 +58,14 @@ return array(
 	| temporary files during the encoding progress. Please set a directory where
 	| these can be written to, but make sure PHP is able to read and write to it.
 	|
+	| Make sure that your path has a trailing slash!
+	|
+	| Examples:
+	| Windows: 'C:/ffmpeg/tmp/'
+	| Mac OSX: '/Applications/MAMP/ffmpeg/tmp/'
+	| Linux:   '/var/www/tmp/'
+	|
 	*/
 
-   'tmp_dir'      => '/Applications/XAMPP/xamppfiles/htdocs/laravel/public/'
+   'tmp_dir'      => ''
 );
