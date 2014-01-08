@@ -589,9 +589,10 @@ class Sonus extends SonusBase
 	/**
 	 * Returns given job progress
 	 * @param  string $job id
+	 * @param  string $format format to output data
 	 * @return array
 	 */
-	public static function getProgress($job)
+	public static function getProgress($job, $format = null)
 	{
 		// Get the temporary directory
 		$tmpdir = self::getTempPath();
@@ -637,8 +638,16 @@ class Sonus extends SonusBase
 				'Progress' => $progress
 				);
 
-			return $output;
-
+			switch ($format) {
+				case 'array':
+					return $output;
+					break;
+				
+				default:
+					return json_encode($output);
+					break;
+			}
+			
 		} else {
 
 			return null;
