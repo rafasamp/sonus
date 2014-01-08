@@ -60,6 +60,18 @@ return array(
 	|
 	*/
 
-   'progress'      => true
+   'progress'      => true,
 
+   /*
+	|--------------------------------------------------------------------------
+	| Temporary Directory
+	|--------------------------------------------------------------------------
+	|
+	| In order to monitor the progress of running tasks Sonus will need to write
+	| temporary files during the encoding progress. Please set a directory where
+	| these can be written to, but make sure PHP is able to read and write to it.
+	|
+	*/
+
+   'tmp_dir'      => '/Applications/XAMPP/xamppfiles/htdocs/laravel/public/'
 );

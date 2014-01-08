@@ -135,7 +135,16 @@ class Sonus extends SonusBase
 	}
 
 	/**
-	 * Returns installed FFMPEG version
+	 * Returns full path for progress temp files
+	 * @return [type] [description]
+	 */
+	protected static function getTempPath()
+	{
+		return Config::get('sonus::tmp_dir');
+	}
+
+	/**
+	 * Returns installed ffmpeg version
 	 * @return array
 	 */
 	public static function getConverterVersion()
@@ -369,6 +378,17 @@ class Sonus extends SonusBase
 	}
 
 	/**
+	 * Sets the progress ID
+	 * @param  string $var progress id
+	 * @return null
+	 */
+	public function progress($var)
+	{
+		$this->progress = $var;
+		return $this;
+	}
+
+	/**
 	 * Adds an input file
 	 * @param  string $var filename
 	 * @return boolean
@@ -549,6 +569,7 @@ class Sonus extends SonusBase
 
 		// Check if user provided raw arguments
 		if (is_null($arg)) {
+
 			// If not, use the prepared arguments
 			$arg = implode(" ", $this->parameters);
 		}
@@ -558,44 +579,93 @@ class Sonus extends SonusBase
 		$output = implode(" ", $this->output);
 
 		// Prepare the command
-		$cmd    = escapeshellcmd($ffmpeg.' '.$input.' '.$arg.' '.$output);
+		$cmd    = escapeshellcmd($ffmpeg.' '.$input.' -v quiet '.$arg.' '.$output);
 
 		// Get OS version
 		$os     = self::_serverOS();
 
 		// Check if progress reporting is enabled
 		if (Config::get('sonus::progress') === true) {
-			// Publish progress to this ID
-			$this->progress = md5($cmd);
-			$cmd = $cmd.' -progress '.$this->progress.'.txt';
 
-			// Get input time
-			$time = self::getMediainfo($input);
-			$time = $time['streams'][0]['duration'];
+			// Get temp dir
+			$tmpdir = self::getTempPath();
 
-			// Save to database
-			DB::insert('insert into sonusprogress (job, final_time) values (?, ?)', array($this->progress, $time));
+			// Get progress id
+			$progress = $this->progress;
+
+			// If the user didn't give a progress ID we fail
+			if(empty($progress)) {
+				return false;
 		}
 
-		// Initiate a command compatible with each OS
-		switch ($os) {
-			case 'WIN':
+			// Publish progress to this ID
+			$cmd = $cmd.' 2>'.$progress.'.sonustmp';
+
+			// Execute command
 				return shell_exec($cmd);
-				break;
 			
-			default:
+		} else {
+
+			// Execute command
 				return shell_exec($cmd.' 2>&1');
-				break;
 		}
 	}
 
 	/**
 	 * Returns given job progress
-	 * @param  string $job job id
+	 * @param  string $job id
 	 * @return array
 	 */
 	public static function getProgress($job)
 	{
+		// Get the temporary directory
+		$tmpdir = self::getTempPath();
 
+		// The code below has been adepted from Jimbo
+		// http://stackoverflow.com/questions/11441517/ffmpeg-progress-bar-encoding-percentage-in-php
+		$content = @file_get_contents($tmpdir.$job'.sonustmp');
+
+		if($content){
+
+			//get duration of source
+			preg_match("/Duration: (.*?), start:/", $content, $matches);
+
+			$rawDuration = $matches[1];
+
+			//rawDuration is in 00:00:00.00 format. This converts it to seconds.
+			$ar = array_reverse(explode(":", $rawDuration));
+			$duration = floatval($ar[0]);
+			if (!empty($ar[1])) $duration += intval($ar[1]) * 60;
+			if (!empty($ar[2])) $duration += intval($ar[2]) * 60 * 60;
+
+			//get the time in the file that is already encoded
+			preg_match_all("/time=(.*?) bitrate/", $content, $matches);
+
+			$rawTime = array_pop($matches);
+
+			//this is needed if there is more than one match
+			if (is_array($rawTime)){$rawTime = array_pop($rawTime);}
+
+			//rawTime is in 00:00:00.00 format. This converts it to seconds.
+			$ar = array_reverse(explode(":", $rawTime));
+			$time = floatval($ar[0]);
+			if (!empty($ar[1])) $time += intval($ar[1]) * 60;
+			if (!empty($ar[2])) $time += intval($ar[2]) * 60 * 60;
+
+			//calculate the progress
+			$progress = round(($time/$duration) * 100);
+
+			$output = array(
+				'Duration' => $rawDuration,
+				'Current'  => $rawTime,
+				'Progress' => $progress
+				);
+
+			return $output;
+
+		} else {
+
+			return null;
+		}
 	}
 }
