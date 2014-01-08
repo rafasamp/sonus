@@ -32,22 +32,6 @@ return array(
 
    /*
 	|--------------------------------------------------------------------------
-	| Supported Operating Systems
-	|--------------------------------------------------------------------------
-	|
-	| As FFMPEG requires extensive shell_exec I am including a list of systems
-	| these functions are tested with. You may add your own system but
-	| it is not guaranteed that it will work.
-	|
-	| The application compares the value of strtoupper(substr(php_uname(), 0, 3))
-	| agains the array below.
-	|
-	*/
-
-   'supported_os'  => array('WIN', 'LIN', 'DAR'),
-
-   /*
-	|--------------------------------------------------------------------------
 	| Progress monitoring
 	|--------------------------------------------------------------------------
 	|

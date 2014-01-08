@@ -16,27 +16,6 @@ use Config;
 class SonusBase {
 
 	/**
-	 * Returns operating system FFMPEG is running
-	 * @return string  Server name (WIN => Windows, LIN => Linux, DAR => Mac OSX)
-	 * @return boolean False if server is not supported
-	 */
-	protected static function _serverOS()
-	{
-		// Server operating system
-		$server_os    = strtoupper(substr(php_uname(), 0, 3));
-
-		// Return supported operating systems
-		$supported_os = Config::get('sonus::supported_os');
-
-		// Check if OS is supported
-		if (!in_array($server_os, $supported_os)) {
-			return false;
-		} else {
-			return $server_os;
-		}
-	}
-
-	/**
 	 * Extracts information from a string when given a beggining and end needle
 	 * @param  string  $string    Haystack
 	 * @param  string  $start     Needle for starting extraction
