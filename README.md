@@ -16,7 +16,7 @@ Sonus is a tool designed to leverage the power of **Laravel 4** and `ffmpeg` to 
 
 Update your `composer.json` file and add the following under the `require` key:
 
-	"rafasamp/sonus": "dev"
+	"rafasamp/sonus": "dev-master"
 
 Run the composer update command:
 
@@ -29,7 +29,7 @@ In your `config/app.php` add `'rafasamp\Sonus\SonusServiceProvider'` to the end 
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
         ...
-        'rafasamp\Sonus\SonusServiceProvider',
+        'Rafasamp\Sonus\SonusServiceProvider',
 
     ),
 
@@ -37,16 +37,16 @@ Still under `config/app.php` add `'Sonus' => 'Rafasamp\Sonus\Facade'` to the `$a
 
     'aliases' => array(
 
-        'App'        => 'Illuminate\Support\Facades\App',
-        'Artisan'    => 'Illuminate\Support\Facades\Artisan',
+        'App'             => 'Illuminate\Support\Facades\App',
+        'Artisan'         => 'Illuminate\Support\Facades\Artisan',
         ...
-        'Sonus'      => 'rafasamp\Sonus\Facade',
+        'Sonus'           => 'Rafasamp\Sonus\Facade',
 
     ),
 
 Run the `artisan` command below to publish the configuration file:
 
-	$ php artisan config:publish rafasamp/Sonus
+	$ php artisan config:publish Rafasamp/Sonus
 
 And update the `ffmpeg` and `ffprobe` key to point at the __full path__ to ffmpeg and ffprobe:
 
