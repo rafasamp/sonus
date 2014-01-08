@@ -4,13 +4,11 @@
 [![Total Downloads](https://poser.pugx.org/rafasamp/sonus/downloads.png)](https://packagist.org/packages/rafasamp/sonus)
 [![ProjectStatus](http://stillmaintained.com/rafasamp/sonus.png)](http://stillmaintained.com/rafasamp/sonus)
 
-Sonus is an attempt to integrate `ffmpeg` with **Laravel 4** and was born out of my frustration when trying to perform simple conversion tasks from within my project.
+Sonus is a tool designed to leverage the power of **Laravel 4** and `ffmpeg` to perform tasks such as:
 
-Although Sonus supports video conversion, the project focus is to fully implement audio conversion before enhancing video compatibility.
-
-**Warning:**
-
-This package is being actively developed and may break at any time. Integration on a production environment is discouraged at this point.
+    * Audio/Video conversion
+    * Video thumbnail generation
+    * Metadata manipulation
 
 ## Quick Start
 
@@ -55,10 +53,6 @@ And update the `ffmpeg` and `ffprobe` key to point at the __full path__ to ffmpe
 	'ffmpeg'        => '/Applications/ffmpeg/bin/ffmpeg',
     'ffprobe'       => '/Applications/ffmpeg/bin/ffprobe',
 
-**Attention!**
-
-Make sure your webserver has full read/write rights to the FFMPEG executable.
-
 ### Examples
 
 Here is a simple example of a file being converted from FLAC to AAC:
@@ -83,8 +77,8 @@ Sonus can also easily generate smart movie thumbnails like this
 
 ### Planned features
 
-* Live progress monitoring **Work in progress**
 * Support for [filters](http://ffmpeg.mplayerhq.hu/ffmpeg-filters.html)
+* Setting metadata
 
 ## License
 
