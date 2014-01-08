@@ -383,8 +383,13 @@ class Sonus extends SonusBase
 	 */
 	public function progress($var)
 	{
+		if (empty($var)) {
+			return false;
+			
+		} else {
 		$this->progress = $var;
 		return $this;
+	}
 	}
 
 	/**
