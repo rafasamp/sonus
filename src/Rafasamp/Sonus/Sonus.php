@@ -598,7 +598,7 @@ class Sonus extends SonusBase
 
 		// The code below has been adepted from Jimbo
 		// http://stackoverflow.com/questions/11441517/ffmpeg-progress-bar-encoding-percentage-in-php
-		$content = @file_get_contents($tmpdir.$job'.sonustmp');
+		$content = @file_get_contents($tmpdir.$job.'.sonustmp');
 
 		if($content){
 
