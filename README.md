@@ -6,9 +6,9 @@
 
 Sonus is a tool designed to leverage the power of **Laravel 4** and `ffmpeg` to perform tasks such as:
 
-    * Audio/Video conversion
-    * Video thumbnail generation
-    * Metadata manipulation
+* Audio/Video conversion
+* Video thumbnail generation
+* Metadata manipulation
 
 ## Quick Start
 
@@ -63,10 +63,6 @@ Sonus can also convert video files:
 
 	Sonus::convert()->input('foo.avi')->bitrate(300, 'video')->output('bar.flv')->go();
 
-Although Sonus contains several preset parameters, you can also pass your own
-
-	Sonus::convert()->input('foo.flac')->output('bar.mp3')->go('-b:a 64k -ac 1');
-
 Sonus can also return media information as an array or json
 
     Sonus::getMediaInfo('foo.mov');
@@ -74,6 +70,29 @@ Sonus can also return media information as an array or json
 Sonus can also easily generate smart movie thumbnails like this
 
     Sonus::getThumbnails('foo.mp4', 'foo-thumb' 5); // Yields 5 thumbnails
+
+Although Sonus contains several preset parameters, you can also pass your own
+
+	Sonus::convert()->input('foo.flac')->output('bar.mp3')->go('-b:a 64k -ac 1');
+
+### Tracking progress
+
+Update the options below in the configuration file using your environment variables
+
+    'progress'      => true,
+    ...
+    'tmp_dir'      => '/Applications/ffmpeg/tmp/'
+
+Pass the progress method when initiating a conversion
+
+    Sonus::convert()->input('foo.avi')->output('bar.mp3')->progress('uniqueid')->go();
+
+Now you can write a controller action to return the progress for the job id you passed and call it using any flavor of JavaScript you like
+
+    public function getJobProgress($id)
+    {
+        return Sonus::getProgress('uniqueid');
+    }
 
 ### Planned features
 
