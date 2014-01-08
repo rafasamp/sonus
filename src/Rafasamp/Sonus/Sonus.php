@@ -117,7 +117,7 @@ class SonusBase {
 class Sonus extends SonusBase
 {
 	/**
-	 * Returns full path of FFMPEG
+	 * Returns full path of ffmpeg
 	 * @return string
 	 */
 	protected static function getConverterPath()
@@ -126,12 +126,12 @@ class Sonus extends SonusBase
 	}
 
 	/**
-	 * Returns full path of FFPROBE
+	 * Returns full path of ffprobe
 	 * @return string
 	 */
 	protected static function getProbePath()
 	{
-		return Config::Get('sonus::ffprobe');
+		return Config::get('sonus::ffprobe');
 	}
 
 	/**
@@ -167,7 +167,7 @@ class Sonus extends SonusBase
 	}
 
 	/**
-	 * Returns all formats FFMPEG supports
+	 * Returns all formats ffmpeg supports
 	 * @return array
 	 */
 	public static function getSupportedFormats()
@@ -186,7 +186,7 @@ class Sonus extends SonusBase
 	}
 
 	/**
-	 * Returns all audio formats FFMPEG can encode
+	 * Returns all audio formats ffmpeg can encode
 	 * @return array
 	 */
 	public static function getSupportedAudioEncoders()
@@ -202,7 +202,7 @@ class Sonus extends SonusBase
 	}
 
 	/**
-	 * Returns all video formats FFMPEG can encode
+	 * Returns all video formats ffmpeg can encode
 	 * @return array
 	 */
 	public static function getSupportedVideoEncoders()
@@ -218,7 +218,7 @@ class Sonus extends SonusBase
 	}
 
 	/**
-	 * Returns all audio formats FFMPEG can decode
+	 * Returns all audio formats ffmpeg can decode
 	 * @return array
 	 */
 	public static function getSupportedAudioDecoders()
@@ -234,7 +234,7 @@ class Sonus extends SonusBase
 	}
 
 	/**
-	 * Returns all video formats FFMPEG can decode
+	 * Returns all video formats ffmpeg can decode
 	 * @return array
 	 */
 	public static function getSupportedVideoDecoders()
@@ -250,8 +250,8 @@ class Sonus extends SonusBase
 	}
 
 	/**
-	 * Returns boolean if FFMPEG is able to encode to this format
-	 * @param  string $format FFMPEG format name
+	 * Returns boolean if ffmpeg is able to encode to this format
+	 * @param  string $format ffmpeg format name
 	 * @return boolean
 	 */
 	public static function canEncode($format)
@@ -267,8 +267,8 @@ class Sonus extends SonusBase
 	}
 
 	/**
-	 * Returns boolean if FFMPEG is able to decode to this format
-	 * @param  string $format FFMPEG format name
+	 * Returns boolean if ffmpeg is able to decode to this format
+	 * @param  string $format ffmpeg format name
 	 * @return boolean
 	 */
 	public static function canDecode($format)
@@ -596,18 +596,18 @@ class Sonus extends SonusBase
 			// If the user didn't give a progress ID we fail
 			if(empty($progress)) {
 				return false;
-		}
+			}
 
 			// Publish progress to this ID
 			$cmd = $cmd.' 2>'.$progress.'.sonustmp';
 
 			// Execute command
-				return shell_exec($cmd);
-			
+			return shell_exec($cmd);
+
 		} else {
 
 			// Execute command
-				return shell_exec($cmd.' 2>&1');
+			return shell_exec($cmd.' 2>&1');
 		}
 	}
 
