@@ -14,7 +14,7 @@ Sonus is a tool designed to leverage the power of **Laravel 4** and `ffmpeg` to 
 
 ### Setup
 
-Update your `composer.json` file and add the following under the `require` key:
+Update your `composer.json` file and add the following under the `require` key
 
 	"rafasamp/sonus": "dev-master"
 
@@ -22,7 +22,7 @@ Run the composer update command:
 
 	$ composer update
 
-In your `config/app.php` add `'rafasamp\Sonus\SonusServiceProvider'` to the end of the `$providers` array:
+In your `config/app.php` add `'rafasamp\Sonus\SonusServiceProvider'` to the end of the `$providers` array
 
     'providers' => array(
 
@@ -33,7 +33,7 @@ In your `config/app.php` add `'rafasamp\Sonus\SonusServiceProvider'` to the end 
 
     ),
 
-Still under `config/app.php` add `'Sonus' => 'Rafasamp\Sonus\Facade'` to the `$aliases` array:
+Still under `config/app.php` add `'Sonus' => 'Rafasamp\Sonus\Facade'` to the `$aliases` array
 
     'aliases' => array(
 
@@ -44,14 +44,11 @@ Still under `config/app.php` add `'Sonus' => 'Rafasamp\Sonus\Facade'` to the `$a
 
     ),
 
-Run the `artisan` command below to publish the configuration file:
+Run the `artisan` command below to publish the configuration file
 
 	$ php artisan config:publish Rafasamp/Sonus
 
-And update the `ffmpeg` and `ffprobe` key to point at the __full path__ to ffmpeg and ffprobe:
-
-	'ffmpeg'        => '/Applications/ffmpeg/bin/ffmpeg',
-    'ffprobe'       => '/Applications/ffmpeg/bin/ffprobe',
+Navigate to `app/config/packages/Rafasamp/Sonus/config.php` and update all four parameters
 
 ### Examples
 
@@ -77,7 +74,7 @@ Although Sonus contains several preset parameters, you can also pass your own
 
 ### Tracking progress
 
-Update the options below in the configuration file using your environment variables
+Make sure the `progress` and `tmp_dir` options are set correctly in the config.php file
 
     'progress'      => true,
     ...
@@ -94,10 +91,29 @@ Now you can write a controller action to return the progress for the job id you 
         return Sonus::getProgress('uniqueid');
     }
 
-### Planned features
+### Security and Compatibility
+
+Sonus uses PHP's [shell_exec](http://us3.php.net/shell_exec) function to perform ffmpeg and ffprobe commands. This command is disabled if you are running PHP 5.3 or below and [safe mode](http://us3.php.net/manual/en/features.safe-mode.php) is enabled.
+
+Please make sure that ffmpeg and ffprobe are at least the following versions:
+
+* ffmpeg: 2.1.*
+* ffprobe: 2.0.*
+
+Lastly, Sonus will only convert to formats which ffmpeg supports. To check if your version of ffmpeg is configured to encode or decode a specific format you can run the following commands using `php artisan tinker`
+
+    var_dump(Sonus::canEncode('mp3'));
+    var_dump(Sonus::canDecode('mp3'));
+
+To get a list of all supported formats you can run
+
+    var_dump(Sonus::getSupportedFormats());
+
+## Planned features
 
 * Support for [filters](http://ffmpeg.mplayerhq.hu/ffmpeg-filters.html)
 * Setting metadata
+* Return meaningful error codes on exceptions
 
 ## License
 
