@@ -9,11 +9,15 @@ return array(
 	|
 	| We need to know the fully qualified system path to where ffmpeg
 	| lives on this server. This is the same path you would time in
-	| terminal to access FFMPEG.
+	| terminal to access ffmpeg.
+	|
+	| Examples:
+	| Windows: 'C:/ffmpeg/bin/ffmpeg.exe'
+	| Mac OSX: '/Applications/MAMP/ffmpeg/ffmpeg'
+	| Linux:   '/usr/bin/ffmpeg'
 	|
 	*/
    
-   #'ffmpeg'        => 'C:/ffmpeg/bin/ffmpeg.exe',
    'ffmpeg'		   => '/Applications/XAMPP/xamppfiles/htdocs/laravel/public/ffmpeg',
 
     /*
@@ -23,11 +27,10 @@ return array(
 	|
 	| We need to know the fully qualified system path to where ffprobe
 	| lives on this server. This is the same path you would time in
-	| terminal to access FFPROBE.
+	| terminal to access ffmpeg.
 	|
 	*/
 
-   #'ffprobe'       => 'C:/ffmpeg/bin/ffprobe.exe',
    'ffprobe'        => '/Applications/XAMPP/xamppfiles/htdocs/laravel/public/ffprobe',
 
    /*
