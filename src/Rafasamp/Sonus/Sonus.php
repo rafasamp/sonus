@@ -565,18 +565,13 @@ class Sonus extends SonusBase
 		$cmd    = escapeshellcmd($ffmpeg.' '.$input.' '.$arg.' '.$output);
 
 		// Check if progress reporting is enabled
-		if (Config::get('sonus::progress') === true) {
+		if (Config::get('sonus::progress') === true || empty($this->progress)) {
 
 			// Get temp dir
 			$tmpdir = self::getTempPath();
 
 			// Get progress id
 			$progress = $this->progress;
-
-			// If the user didn't give a progress ID we fail
-			if(empty($progress)) {
-				return false;
-			}
 
 			// Publish progress to this ID
 			$cmd = $cmd.' 2>'.$progress.'.sonustmp';
