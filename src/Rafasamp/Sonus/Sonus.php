@@ -364,7 +364,7 @@ class Sonus extends SonusBase
 	{
 		if (empty($var)) {
 			return false;
-			
+
 		} else {
 			$this->progress = $var;
 			return $this;
@@ -554,18 +554,15 @@ class Sonus extends SonusBase
 		if (is_null($arg)) {
 
 			// If not, use the prepared arguments
-			$arg = implode(" ", $this->parameters);
+			$arg = implode(' ', $this->parameters);
 		}
 
 		// Return input and output files
-		$input  = implode(" ", $this->input);
-		$output = implode(" ", $this->output);
+		$input  = implode(' ', $this->input);
+		$output = implode(' ', $this->output);
 
 		// Prepare the command
-		$cmd    = escapeshellcmd($ffmpeg.' '.$input.' -v quiet '.$arg.' '.$output);
-
-		// Get OS version
-		$os     = self::_serverOS();
+		$cmd    = escapeshellcmd($ffmpeg.' '.$input.' '.$arg.' '.$output);
 
 		// Check if progress reporting is enabled
 		if (Config::get('sonus::progress') === true) {
