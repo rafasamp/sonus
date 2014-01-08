@@ -574,7 +574,7 @@ class Sonus extends SonusBase
 			$progress = $this->progress;
 
 			// Publish progress to this ID
-			$cmd = $cmd.' 2>'.$progress.'.sonustmp';
+			$cmd = $cmd.' 1>"'.$tmpdir.$progress.'.sonustmp" 2>&1';
 
 			// Execute command
 			return shell_exec($cmd);
