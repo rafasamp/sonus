@@ -573,7 +573,7 @@ class Sonus extends SonusBase
 		// Get the temporary directory
 		$tmpdir = self::getTempPath();
 
-		// The code below has been adepted from Jimbo
+		// The code below has been adapted from Jimbo
 		// http://stackoverflow.com/questions/11441517/ffmpeg-progress-bar-encoding-percentage-in-php
 		$content = @file_get_contents($tmpdir.$job.'.sonustmp');
 
