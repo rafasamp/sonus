@@ -346,7 +346,6 @@ class Sonus extends SonusBase
 		// Value must be text
 		if (!is_string($var)) {
 			return false;
-
 		} else {
 			array_push($this->input, '-i '.$var);
 			return $this;
@@ -363,7 +362,6 @@ class Sonus extends SonusBase
 		// Value must be text
 		if (!is_string($var)) {
 			return false;
-
 		} else {
 			array_push($this->output, $var);
 			return $this;
@@ -404,7 +402,6 @@ class Sonus extends SonusBase
 		// Value must be numeric
 		if (!is_numeric($var)) {
 			return false;
-
 		} else {
 			array_push($this->parameters, '-timelimit '.$var);
 			return $this;
@@ -423,7 +420,6 @@ class Sonus extends SonusBase
 		// Value must not be null
 		if (is_null($var)) {
 			return false;
-
 		} else {
 			switch($type) {
 				case 'audio':
@@ -453,7 +449,6 @@ class Sonus extends SonusBase
 		// Value must be numeric
 		if (!is_numeric($var)) {
 			return false;
-
 		} else {
 			switch ($type) {
 				case 'audio':
@@ -484,7 +479,6 @@ class Sonus extends SonusBase
 		// Value must be numeric
 		if (!is_numeric($var)) {
 			return false;
-
 		} else {
 			array_push($this->parameters, '-ac '.$var);
 			return $this;
@@ -502,7 +496,6 @@ class Sonus extends SonusBase
 		// Value must be numeric
 		if (!is_numeric($var)) {
 			return false;
-
 		} else {
 			array_push($this->parameters, '-ar:a '.$var);
 			return $this;
@@ -522,7 +515,6 @@ class Sonus extends SonusBase
 
 		// Check if user provided raw arguments
 		if (is_null($arg)) {
-
 			// If not, use the prepared arguments
 			$arg = implode(' ', $this->parameters);
 		}
@@ -554,9 +546,7 @@ class Sonus extends SonusBase
 
 			// Execute command
 			return shell_exec($cmd);
-
 		} else {
-
 			// Execute command
 			return shell_exec($cmd);
 		}
@@ -578,7 +568,6 @@ class Sonus extends SonusBase
 		$content = @file_get_contents($tmpdir.$job.'.sonustmp');
 
 		if($content){
-
 			// Get duration of source
 			preg_match("/Duration: (.*?), start:/", $content, $matches);
 
