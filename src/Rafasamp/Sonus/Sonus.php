@@ -242,6 +242,7 @@ class Sonus extends SonusBase
 			case 'json':
 				$command = self::getProbePath().' -v quiet -print_format json -show_format -show_streams -pretty -i '.$input.' 2>&1';
 				$output  = shell_exec($command);
+				$output  = json_decode($output, true);
 				break;
 
 			case 'xml':
