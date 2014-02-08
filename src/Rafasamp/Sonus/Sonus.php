@@ -638,6 +638,7 @@ class Sonus extends SonusBase
 				'Progress' => $progress
 				);
 
+			// Return data
 			switch ($format) {
 				case 'array':
 					return $output;
