@@ -1,4 +1,6 @@
-<?php namespace Rafasamp\Sonus;
+<?php 
+
+namespace Rafasamp\Sonus;
 
 use Config;
 
