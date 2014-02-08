@@ -613,10 +613,56 @@ class Sonus extends SonusBase
 					return json_encode($output);
 					break;
 			}
-			
 		} else {
-
 			return null;
 		}
+	}
+
+	/**
+	 * Deletes job temporary file
+	 * @param  string $job id
+	 * @return boolean
+	 */
+	public static function destroyProgress($job) 
+	{
+		// Get temporary file path
+		$file = $tmpdir.$job.'.sonustmp';
+
+		// Check if file exists
+		if (is_file($file)) {
+			// Delete file
+			$output = unlink($tmpdir.$job.'.sonustmp');
+			return $output;
+		} else {
+			return false;
+		}
+		
+	}
+
+	/**
+	 * Deletes all temporary files
+	 * @return boolean
+	 */
+	public static function destroyAllProgress()
+	{
+		// Get all filenames within the temporary folder
+		$files = glob($tmpdir.'*');
+
+		// Iterate through files
+		$output = array();
+		foreach ($files as $file) {
+			if (is_file($file)) {
+				// Return result to array
+				$result = unlink($file);
+				array_push($output, var_export($result, true));
+			}
+		}
+
+		// If a file could not be deleted, return false
+		if (array_search('false', $output)) {
+			return false;
+		}
+
+		return true;
 	}
 }
