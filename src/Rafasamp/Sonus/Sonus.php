@@ -362,9 +362,10 @@ class Sonus extends SonusBase
 	 */
 	public function progress($var)
 	{
-		if (empty($var)) {
-			return false;
-
+		// If value is null pass current timestamp
+		if (is_null($var)) {
+			$this->progress = date('U');
+			return $this;
 		} else {
 			$this->progress = $var;
 			return $this;
@@ -378,6 +379,7 @@ class Sonus extends SonusBase
 	 */
 	public function input($var)
 	{
+		// Value must be text
 		if (!is_string($var)) {
 			return false;
 
@@ -394,6 +396,7 @@ class Sonus extends SonusBase
 	 */
 	public function output($var)
 	{
+		// Value must be text
 		if (!is_string($var)) {
 			return false;
 
@@ -434,6 +437,7 @@ class Sonus extends SonusBase
 	 */
 	public function timelimit($var)
 	{
+		// Value must be numeric
 		if (!is_numeric($var)) {
 			return false;
 
@@ -452,6 +456,7 @@ class Sonus extends SonusBase
 	 */
 	public function codec($var, $type = 'audio')
 	{
+		// Value must not be null
 		if (is_null($var)) {
 			return false;
 
@@ -512,6 +517,7 @@ class Sonus extends SonusBase
 	 */
 	public function channels($var)
 	{
+		// Value must be numeric
 		if (!is_numeric($var)) {
 			return false;
 
