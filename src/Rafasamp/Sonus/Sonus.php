@@ -565,13 +565,19 @@ class Sonus extends SonusBase
 		$cmd    = escapeshellcmd($ffmpeg.' '.$input.' '.$arg.' '.$output);
 
 		// Check if progress reporting is enabled
-		if (Config::get('sonus::progress') === true || empty($this->progress)) {
+		if (Config::get('sonus::progress') === true) {
 
 			// Get temp dir
 			$tmpdir = self::getTempPath();
 
 			// Get progress id
-			$progress = $this->progress;
+			if (empty($this->progress)) {
+				// Create a default (unix timestamp)
+				$progress = date('U');
+			} else {
+				// Assign if it exists
+				$progress = $this->progress;
+			}
 
 			// Publish progress to this ID
 			$cmd = $cmd.' 1>"'.$tmpdir.$progress.'.sonustmp" 2>&1';
@@ -582,7 +588,7 @@ class Sonus extends SonusBase
 		} else {
 
 			// Execute command
-			return shell_exec($cmd.' 2>&1');
+			return shell_exec($cmd);
 		}
 	}
 
