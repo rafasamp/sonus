@@ -102,6 +102,7 @@ Please make sure that ffmpeg and ffprobe are at least the following versions:
 * ffprobe: 2.0.*
 
 Also, remember that filepaths must be relative to the location of FFMPEG on your system. To ensure compatibility, it is good practice to pass the full path of the input and output files. Here's an example working in Laravel:
+
     $file_in  = Input::file('audio')->getRealPath();
     $file_out = '\path\to\my\file.mp3'; 
     Sonus::convert()->input($file_in)->output($file_out)->go();
