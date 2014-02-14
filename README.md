@@ -3,8 +3,9 @@
 [![Build Status](https://travis-ci.org/rafasamp/sonus.png?branch=master)](https://travis-ci.org/rafasamp/sonus)
 [![Total Downloads](https://poser.pugx.org/rafasamp/sonus/downloads.png)](https://packagist.org/packages/rafasamp/sonus)
 [![ProjectStatus](http://stillmaintained.com/rafasamp/sonus.png)](http://stillmaintained.com/rafasamp/sonus)
+[![License](https://poser.pugx.org/rafasamp/sonus/license.png)](https://packagist.org/packages/rafasamp/sonus)
 
-Sonus is a tool designed to leverage the power of **Laravel 4** and `ffmpeg` to perform tasks such as:
+Sonus is a tool designed to leverage the power of **Laravel 4** and **ffmpeg** to perform tasks such as:
 
 * Audio/Video conversion
 * Video thumbnail generation
