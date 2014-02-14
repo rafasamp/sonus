@@ -11,7 +11,7 @@ use Config;
  *
  * @package    Laravel
  * @category   Bundle
- * @version    1.0
+ * @version    1.0.1
  * @author     Rafael Sampaio <rafaelsampaio@live.com>
  */
 
