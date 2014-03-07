@@ -116,6 +116,15 @@ To get a list of all supported formats you can run
 
     var_dump(Sonus::getSupportedFormats());
 
+## Troubleshooting
+
+Please make sure the following statements are true before opening an issue:
+
+1) I am able to access FFMPEG on terminal using the same path I defined in the Sonus configuration file
+2) I have checked the error logs for the webserver and found no FFMPEG output messages
+
+Usually all concerns are taken care of by following these two steps. If you still find yourself having issues you can always open a trouble ticket.
+
 ## Planned features
 
 * Support for [filters](http://ffmpeg.mplayerhq.hu/ffmpeg-filters.html)
