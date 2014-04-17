@@ -23,7 +23,7 @@ Run the composer update command:
 
 	$ composer update
 
-In your `config/app.php` add `'rafasamp\Sonus\SonusServiceProvider'` to the end of the `$providers` array
+In your `config/app.php` add `'Rafasamp\Sonus\SonusServiceProvider'` to the end of the `$providers` array
 
     'providers' => array(
 
