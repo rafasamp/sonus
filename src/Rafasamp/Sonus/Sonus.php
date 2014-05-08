@@ -51,7 +51,13 @@ class Sonus
         $output  = shell_exec($command);
 
         // PREG pattern to retrive version information
-        preg_match("/ffmpeg version (?P<major>[0-9]{0,3}).(?P<minor>[0-9]{0,3}).(?P<revision>[0-9]{0,3})/", $output, $parsed);
+        $ouput = preg_match("/ffmpeg version (?P<major>[0-9]{0,3}).(?P<minor>[0-9]{0,3}).(?P<revision>[0-9]{0,3})/", $output, $parsed);
+
+        // Verify output
+        if ($output === false || $output == 0)
+        {
+            return false;
+        }
 
         // Assign array with variables
         $version = array(
@@ -74,7 +80,13 @@ class Sonus
         $output  = shell_exec($command);
 
         // PREG pattern to retrive version information
-        preg_match_all("/(?P<mux>(D\s|\sE|DE))\s(?P<format>\S{3,11})\s/", $output, $parsed);
+        $output = preg_match_all("/(?P<mux>(D\s|\sE|DE))\s(?P<format>\S{3,11})\s/", $output, $parsed);
+
+        // Verify output
+        if ($output === false || $output == 0)
+        {
+            return false;
+        }
 
         // Combine the format and mux information into an array
         $formats = array_combine($parsed['format'], $parsed['mux']);
@@ -93,7 +105,13 @@ class Sonus
         $output  = shell_exec($command);
 
         // PREG pattern to retrive version information
-        preg_match_all("/[A]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\S{3,20})\s/", $output, $parsed);
+        $output = preg_match_all("/[A]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\S{3,20})\s/", $output, $parsed);
+
+        // Verify output
+        if ($output === false || $output == 0)
+        {
+            return false;
+        }
 
         return $parsed['format'];
     }
@@ -109,7 +127,13 @@ class Sonus
         $output  = shell_exec($command);
 
         // PREG pattern to retrive version information
-        preg_match_all("/[V]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\S{3,20})\s/", $output, $parsed);
+        $output = preg_match_all("/[V]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\S{3,20})\s/", $output, $parsed);
+
+        // Verify output
+        if ($output === false || $output == 0)
+        {
+            return false;
+        }
 
         return $parsed['format'];
     }
@@ -125,7 +149,13 @@ class Sonus
         $output  = shell_exec($command);
 
         // PREG pattern to retrive version information
-        preg_match_all("/[A]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\w{3,20})\s/", $output, $parsed);
+        $output = preg_match_all("/[A]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\w{3,20})\s/", $output, $parsed);
+
+        // Verify output
+        if ($output === false || $output == 0)
+        {
+            return false;
+        }
 
         return $parsed['format'];
     }
@@ -141,7 +171,13 @@ class Sonus
         $output  = shell_exec($command);
 
         // PREG pattern to retrive version information
-        preg_match_all("/[V]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\w{3,20})\s/", $output, $parsed);
+        $output = preg_match_all("/[V]([.]|\w)([.]|\w)([.]|\w)([.]|\w)([.]|\w)\s(?P<format>\w{3,20})\s/", $output, $parsed);
+
+        // Verify output
+        if ($output === false || $output == 0)
+        {
+            return false;
+        }
 
         return $parsed['format'];
     }
@@ -480,7 +516,7 @@ class Sonus
         $output = implode(' ', $this->output);
 
         // Prepare the command
-        $cmd    = escapeshellcmd($ffmpeg.' '.$input.' '.$arg.' '.$output);
+        $cmd = escapeshellcmd($ffmpeg.' '.$input.' '.$arg.' '.$output);
 
         // Check if progress reporting is enabled
         if (Config::get('sonus::progress') === true) {
