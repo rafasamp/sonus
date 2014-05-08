@@ -1,9 +1,8 @@
-<?php namespace Rafasamp\Sonus;
+<?php
 
-use TestCase;
 use Rafasamp\Sonus\Sonus;
 
-class SonusIncorrectInputTest extends TestCase
+class SonusIncorrectInputTest extends PHPUnit_Framework_TestCase
 {
 
     /**

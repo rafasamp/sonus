@@ -1,9 +1,8 @@
-<?php namespace Rafasamp\Sonus;
+<?php
 
-use TestCase;
 use Rafasamp\Sonus\Helpers;
 
-class HelpersTest extends TestCase
+class HelpersTest extends PHPUnit_Framework_TestCase
 {
 
     /**
