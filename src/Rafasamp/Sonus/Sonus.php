@@ -192,7 +192,8 @@ class Sonus
         $formats = array_merge(self::getSupportedAudioEncoders(), self::getSupportedVideoEncoders());
 
         // Return boolean if they can be encoded or not
-        if(!in_array($format, $formats)) {
+        if(!in_array($format, $formats)) 
+        {
             return false;
         } else {
             return true;
@@ -210,7 +211,8 @@ class Sonus
         $formats = array_merge(self::getSupportedAudioDecoders(), self::getSupportedVideoDecoders());
 
         // Return boolean if they can be encoded or not
-        if(!in_array($format, $formats)) {
+        if(!in_array($format, $formats)) 
+        {
             return false;
         } else  {
             return true;
@@ -226,11 +228,13 @@ class Sonus
     public static function getMediaInfo($input, $type = null)
     {
         // Just making sure everything goes smooth
-        if (substr($input, 0, 2) == '-i') {
+        if (substr($input, 0, 2) == '-i') 
+        {
             $input = substr($input, 3);
         }
 
-        switch ($type) {
+        switch ($type) 
+        {
             case 'json':
                 $command = self::getProbePath().' -v quiet -print_format json -show_format -show_streams -pretty -i '.$input.' 2>&1';
                 $output  = shell_exec($command);
@@ -271,7 +275,8 @@ class Sonus
         $count = round($count);
 
         // Return false if user requests 0 frames or round function fails
-        if ($count < 1) {
+        if ($count < 1) 
+        {
             return false;
         }
 
@@ -309,7 +314,8 @@ class Sonus
      * Returns object instance for chainable methods
      * @return object
      */
-    public static function convert() {
+    public static function convert() 
+    {
         $sonus = new Sonus;
         return $sonus;
     }
@@ -322,7 +328,8 @@ class Sonus
     public function progress($var)
     {
         // If value is null pass current timestamp
-        if (is_null($var)) {
+        if (is_null($var)) 
+        {
             $this->progress = date('U');
             return $this;
         } else {
@@ -339,12 +346,13 @@ class Sonus
     public function input($var)
     {
         // Value must be text
-        if (!is_string($var)) {
+        if (!is_string($var)) 
+        {
             return false;
-        } else {
-            array_push($this->input, '-i '.$var);
-            return $this;
         }
+
+        array_push($this->input, '-i '.$var);
+        return $this;
     }
 
     /**
@@ -355,12 +363,13 @@ class Sonus
     public function output($var)
     {
         // Value must be text
-        if (!is_string($var)) {
+        if (!is_string($var)) 
+        {
             return false;
-        } else {
-            array_push($this->output, $var);
-            return $this;
         }
+
+        array_push($this->output, $var);
+        return $this;
     }
 
     /**
@@ -370,7 +379,8 @@ class Sonus
      */
     public function overwrite($var = true)
     {
-        switch ($var) {
+        switch ($var) 
+        {
             case true:
                 array_push($this->parameters, '-y');
                 return $this;
@@ -395,12 +405,13 @@ class Sonus
     public function timelimit($var)
     {
         // Value must be numeric
-        if (!is_numeric($var)) {
+        if (!is_numeric($var)) 
+        {
             return false;
-        } else {
-            array_push($this->parameters, '-timelimit '.$var);
-            return $this;
         }
+
+        array_push($this->parameters, '-timelimit '.$var);
+        return $this;
     }
 
     /**
@@ -413,24 +424,26 @@ class Sonus
     public function codec($var, $type = 'audio')
     {
         // Value must not be null
-        if (is_null($var)) {
+        if (is_null($var)) 
+        {
             return false;
-        } else {
-            switch($type) {
-                case 'audio':
-                    array_push($this->parameters, '-c:a '.$var);
-                    return $this;
-                    break;
+        }
 
-                case 'video':
-                    array_push($this->parameters, '-c:v '.$var);
-                    return $this;
-                    break;
+        switch($type) 
+        {
+            case 'audio':
+                array_push($this->parameters, '-c:a '.$var);
+                return $this;
+                break;
 
-                default:
-                    return false;
-                    break;
-            }
+            case 'video':
+                array_push($this->parameters, '-c:v '.$var);
+                return $this;
+                break;
+
+            default:
+                return false;
+                break;
         }
     }
 
@@ -442,24 +455,26 @@ class Sonus
     public function bitrate($var, $type = 'audio')
     {
         // Value must be numeric
-        if (!is_numeric($var)) {
+        if (!is_numeric($var)) 
+        {
             return false;
-        } else {
-            switch ($type) {
-                case 'audio':
-                    array_push($this->parameters, '-b:a '.$var.'k');
-                    return $this;
-                    break;
+        }
 
-                case 'video':
-                    array_push($this->parameters, '-b:v '.$var.'k');
-                    return $this;
-                    break;
+        switch ($type) 
+        {
+            case 'audio':
+                array_push($this->parameters, '-b:a '.$var.'k');
+                return $this;
+                break;
 
-                default:
-                    return false;
-                    break;
-            }           
+            case 'video':
+                array_push($this->parameters, '-b:v '.$var.'k');
+                return $this;
+                break;
+
+            default:
+                return false;
+                break;
         }
     }
 
@@ -472,12 +487,13 @@ class Sonus
     public function channels($var)
     {
         // Value must be numeric
-        if (!is_numeric($var)) {
+        if (!is_numeric($var)) 
+        {
             return false;
-        } else {
-            array_push($this->parameters, '-ac '.$var);
-            return $this;
         }
+
+        array_push($this->parameters, '-ac '.$var);
+        return $this;
     }
 
     /**
@@ -489,12 +505,13 @@ class Sonus
     public function frequency($var)
     {
         // Value must be numeric
-        if (!is_numeric($var)) {
+        if (!is_numeric($var)) 
+        {
             return false;
-        } else {
-            array_push($this->parameters, '-ar:a '.$var);
-            return $this;
         }
+
+        array_push($this->parameters, '-ar:a '.$var);
+        return $this;
     }
 
     /**
@@ -509,7 +526,8 @@ class Sonus
         $ffmpeg = self::getConverterPath();
 
         // Check if user provided raw arguments
-        if (is_null($arg)) {
+        if (is_null($arg)) 
+        {
             // If not, use the prepared arguments
             $arg = implode(' ', $this->parameters);
         }
@@ -522,13 +540,14 @@ class Sonus
         $cmd = escapeshellcmd($ffmpeg.' '.$input.' '.$arg.' '.$output);
 
         // Check if progress reporting is enabled
-        if (Config::get('sonus::progress') === true) {
-
+        if (Config::get('sonus::progress') === true) 
+        {
             // Get temp dir
             $tmpdir = self::getTempPath();
 
             // Get progress id
-            if (empty($this->progress)) {
+            if (empty($this->progress)) 
+            {
                 // Create a default (unix timestamp)
                 $progress = date('U');
             } else {
@@ -562,7 +581,8 @@ class Sonus
         // http://stackoverflow.com/questions/11441517/ffmpeg-progress-bar-encoding-percentage-in-php
         $content = @file_get_contents($tmpdir.$job.'.sonustmp');
 
-        if($content){
+        if($content)
+        {
             // Get duration of source
             preg_match("/Duration: (.*?), start:/", $content, $matches);
 
@@ -580,7 +600,10 @@ class Sonus
             $rawTime = array_pop($matches);
 
             // This is needed if there is more than one match
-            if (is_array($rawTime)){$rawTime = array_pop($rawTime);}
+            if (is_array($rawTime))
+            {
+                $rawTime = array_pop($rawTime);
+            }
 
             // rawTime is in 00:00:00.00 format. This converts it to seconds.
             $ar = array_reverse(explode(":", $rawTime));
@@ -599,7 +622,8 @@ class Sonus
                 );
 
             // Return data
-            switch ($format) {
+            switch ($format) 
+            {
                 case 'array':
                     return $output;
                     break;
@@ -624,14 +648,14 @@ class Sonus
         $file = $tmpdir.$job.'.sonustmp';
 
         // Check if file exists
-        if (is_file($file)) {
+        if (is_file($file)) 
+        {
             // Delete file
             $output = unlink($tmpdir.$job.'.sonustmp');
             return $output;
         } else {
             return false;
         }
-        
     }
 
     /**
@@ -645,8 +669,10 @@ class Sonus
 
         // Iterate through files
         $output = array();
-        foreach ($files as $file) {
-            if (is_file($file)) {
+        foreach ($files as $file) 
+        {
+            if (is_file($file)) 
+            {
                 // Return result to array
                 $result = unlink($file);
                 array_push($output, var_export($result, true));
@@ -654,7 +680,8 @@ class Sonus
         }
 
         // If a file could not be deleted, return false
-        if (array_search('false', $output)) {
+        if (array_search('false', $output)) 
+        {
             return false;
         }
 
