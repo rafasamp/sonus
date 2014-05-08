@@ -1,5 +1,4 @@
-<?php
-namespace Rafasamp\Sonus;
+<?php namespace Rafasamp\Sonus;
 
 use Illuminate\Support\Facades\Facade as IlluminateFacade;
 
@@ -10,7 +9,8 @@ class Facade extends IlluminateFacade {
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'sonus'; }
-
-
+    protected static function getFacadeAccessor()
+    {
+        return 'sonus';
+    }
 }
