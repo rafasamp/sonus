@@ -267,7 +267,10 @@ class Sonus
      */
     public static function getThumbnails($input, $output, $count = 5, $format = 'png')
     {
-        // User cannot request 0 frames
+        // Round user input
+        $count = round($count);
+
+        // Return false if user requests 0 frames or round function fails
         if ($count < 1) {
             return false;
         }
