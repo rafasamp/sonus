@@ -1,4 +1,4 @@
-<?php Rafasamp\Sonus;
+<?php namespace Rafasamp\Sonus;
 
 class Helpers
 {
@@ -7,10 +7,11 @@ class Helpers
      * @param  string HH:MM:SS formatted value
      * @return string
      */
-    protected static function timestampToSeconds($string)
+    public static function timestampToSeconds($string)
     {
         // Extract hour, minute, and seconds
         $time = explode(":", $string);
+        
         // Convert to seconds (round up to nearest second)
         $secs = ($time[0] * 3600) + ($time[1] * 60) + (ceil($time[2]));
         return $secs;
@@ -21,7 +22,7 @@ class Helpers
      * @param  integer $int seconds
      * @return string
      */
-    protected static function secondsToTimestamp($int)
+    public static function secondsToTimestamp($int)
     {
         $output = date('H:i:s', mktime(0, 0, $int));
         return $output;
@@ -33,7 +34,7 @@ class Helpers
      * @param  integer $total   total time in seconds
      * @return integer
      */
-    protected static function progressPercentage($current, $total)
+    public static function progressPercentage($current, $total)
     {
         // Round to the nearest percent
         $output = ceil(($current / $total) * 100);
