@@ -24,6 +24,9 @@ class Helpers
      */
     public static function secondsToTimestamp($int)
     {
+        // Set default timezone to UTC avoiding mktime errors
+        date_default_timezone_set('UTC');
+
         $output = date('H:i:s', mktime(0, 0, $int));
         return $output;
     }
