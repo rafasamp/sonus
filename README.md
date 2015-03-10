@@ -1,3 +1,8 @@
+# Project Status
+I regret to inform that I will not be updating Sonus any further. Unfortunately life has got in the way and I cannot dedicate the time for this project. There is a fork by closca [here](https://github.com/closca/sonus) that supports Laravel 5. I will keep the Github page alive in case anyone needs to reference it.
+
+Thank you to everyone who used this little project of mine!
+
 # Sonus (Laravel 4 Package)
 [![Latest Stable Version](https://poser.pugx.org/rafasamp/sonus/v/stable.png)](https://packagist.org/packages/rafasamp/sonus)
 [![Build Status](https://travis-ci.org/rafasamp/sonus.png?branch=master)](https://travis-ci.org/rafasamp/sonus)
