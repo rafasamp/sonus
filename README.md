@@ -52,7 +52,7 @@ Still under `config/app.php` add `'Sonus' => 'Rafasamp\Sonus\Facade'` to the `$a
 
 Run the `artisan` command below to publish the configuration file
 
-	$ php artisan config:publish Rafasamp/Sonus
+	$ php artisan config:publish rafasamp/sonus
 
 Navigate to `app/config/packages/Rafasamp/Sonus/config.php` and update all four parameters
 
